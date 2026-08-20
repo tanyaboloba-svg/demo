@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Радуга — частный детский сад в Новосибирске</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2430; --ink-soft:#5A6675; --paper:#FBF7F2; --card:#FFFFFF;
+  --rose:#D98B7E; --saffron:#DFA84B; --sage:#8FA97A; --sea:#5C8FA8; --plum:#8A7196;
+  --line:#E7DFD5;
+  --gut:clamp(20px,5vw,64px);
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Onest',-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{margin:0; font-weight:800; letter-spacing:-.02em; line-height:1.08}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:var(--gut)}
+.eyebrow{
+  font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  display:flex; align-items:center; gap:10px; color:var(--ink-soft);
+}
+.eyebrow::before{content:""; width:26px; height:3px; border-radius:2px; background:var(--dot,var(--rose))}
+section{padding-block:clamp(56px,9vw,104px)}
+
+/* ---------- demo bar ---------- */
+.demobar{
+  background:var(--ink); color:#fff; font-size:13px; line-height:1.5;
+  padding:10px var(--gut); text-align:center;
+}
+.demobar b{font-weight:600}
+
+/* ---------- hero ---------- */
+.hero{padding-top:clamp(44px,7vw,80px); padding-bottom:clamp(40px,6vw,72px)}
+.hero h1{font-size:clamp(38px,7.4vw,74px)}
+.hero h1 em{font-style:normal; color:var(--rose)}
+.hero .lede{margin-top:22px; font-size:clamp(17px,2.2vw,21px); color:var(--ink-soft); max-width:33ch}
+.badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px}
+.badge{
+  background:var(--card); border:1px solid var(--line); border-radius:999px;
+  padding:8px 15px; font-size:14px; font-weight:500;
+}
+.badge b{font-weight:600}
+.cta{
+  display:inline-block; margin-top:30px; background:var(--ink); color:#fff;
+  text-decoration:none; font-weight:600; font-size:16px;
+  padding:16px 30px; border-radius:999px; transition:transform .18s, background .18s;
+}
+.cta:hover{background:#2E3B4C; transform:translateY(-2px)}
+.cta:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:3px solid var(--sea); outline-offset:3px
+}
+.herogrid{display:grid; gap:clamp(28px,5vw,56px); grid-template-columns:1fr}
+@media(min-width:880px){.herogrid{grid-template-columns:1.05fr .95fr; align-items:center}}
+.photo{
+  border-radius:var(--r); aspect-ratio:4/3; border:1px solid var(--line);
+  background:var(--card); display:grid; place-items:center; text-align:center;
+  color:var(--ink-soft); font-size:14px; padding:24px;
+}
+
+/* ---------- signature: спектр дня ---------- */
+.day{background:var(--card); border-block:1px solid var(--line)}
+.dayhead{display:flex; flex-wrap:wrap; gap:16px; align-items:baseline; justify-content:space-between}
+.dayhead h2{font-size:clamp(26px,4.2vw,40px); margin-top:14px}
+.spectrum{margin-top:38px; display:grid; gap:3px; grid-template-columns:1fr}
+@media(min-width:760px){.spectrum{grid-template-columns:repeat(5,1fr)}}
+.slot{
+  position:relative; padding:22px 18px 26px; border-radius:12px; color:#fff;
+  min-height:132px; display:flex; flex-direction:column; justify-content:flex-end;
+}
+.slot .t{font-size:13px; font-weight:600; opacity:.85; letter-spacing:.06em}
+.slot .n{font-size:19px; font-weight:800; margin-top:6px; line-height:1.2}
+.slot .d{font-size:14px; margin-top:7px; opacity:.9; line-height:1.45}
+.s1{background:var(--rose)} .s2{background:var(--saffron)}
+.s3{background:var(--sage)} .s4{background:var(--sea)} .s5{background:var(--plum)}
+
+/* ---------- cards ---------- */
+.grid{display:grid; gap:16px; margin-top:38px; grid-template-columns:1fr}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.grid.four{grid-template-columns:repeat(4,1fr)}}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  padding:26px 24px 28px;
+}
+.card h3{font-size:19px; margin-bottom:9px}
+.card p{font-size:15px; color:var(--ink-soft)}
+.card .rule{width:30px; height:3px; border-radius:2px; margin-bottom:16px; background:var(--dot,var(--rose))}
+
+/* ---------- groups ---------- */
+.group{display:flex; flex-direction:column; gap:6px}
+.group .age{font-size:13px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+.group .price{font-size:27px; font-weight:800; margin-top:12px}
+.group .price span{font-size:14px; font-weight:500; color:var(--ink-soft)}
+.group ul{margin:14px 0 0; padding-left:18px; font-size:15px; color:var(--ink-soft)}
+.group li{margin-bottom:5px}
+
+/* ---------- quotes ---------- */
+.quotes{display:grid; gap:16px; margin-top:34px; grid-template-columns:1fr}
+@media(min-width:820px){.quotes{grid-template-columns:1fr 1fr}}
+.quote{background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:26px 24px}
+.quote p{font-size:16px}
+.quote .who{margin-top:14px; font-size:14px; color:var(--ink-soft); font-weight:500}
+
+/* ---------- form ---------- */
+.form{background:var(--ink); color:#fff; border-radius:var(--r); padding:clamp(28px,4.5vw,48px); margin-top:38px}
+.form h2{font-size:clamp(24px,3.6vw,34px); color:#fff}
+.form p.sub{color:#B9C3CE; margin-top:12px; font-size:16px; max-width:44ch}
+.fields{display:grid; gap:12px; margin-top:26px; grid-template-columns:1fr}
+@media(min-width:700px){.fields{grid-template-columns:1fr 1fr auto}}
+input{
+  font:inherit; font-size:16px; padding:15px 18px; border-radius:12px;
+  border:1px solid #3A4756; background:#141C26; color:#fff; width:100%;
+}
+input::placeholder{color:#7C8896}
+button{
+  font:inherit; font-weight:600; font-size:16px; padding:15px 28px; border-radius:12px;
+  border:0; background:var(--saffron); color:#20180A; cursor:pointer; white-space:nowrap;
+}
+.note{margin-top:14px; font-size:13px; color:#8C97A4}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line); padding-block:36px; font-size:15px; color:var(--ink-soft)}
+.frow{display:flex; flex-wrap:wrap; gap:10px 28px; justify-content:space-between}
+footer a{font-weight:600; color:var(--ink); text-decoration:none}
+
+/* ---------- motion ---------- */
+.rise{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.rise.in{opacity:1; transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise{opacity:1; transform:none; transition:none}
+  .cta{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div class="demobar">
+  Демонстрационный макет для детского сада «Радуга». <b>Тексты и цены условные</b> — заменяются на ваши.
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap herogrid">
+    <div>
+      <div class="eyebrow" style="--dot:var(--rose)">Новосибирск · с 2016 года</div>
+      <h1 style="margin-top:18px">Детский сад,<br>где ребёнку<br><em>спокойно</em></h1>
+      <p class="lede">Группы до 12 человек, свой повар и педагог, который знает вашего ребёнка по имени, а не по списку.</p>
+      <div class="badges">
+        <span class="badge">★ <b>5,0</b> — рейтинг в 2ГИС</span>
+        <span class="badge"><b>125</b> отзывов родителей</span>
+        <span class="badge"><b>2</b> филиала в городе</span>
+      </div>
+      <a class="cta" href="#zapis">Записаться на экскурсию</a>
+    </div>
+    <div class="photo">Здесь — фотография вашей группы или площадки</div>
+  </div>
+</section>
+
+<!-- СИГНАТУРА: СПЕКТР ДНЯ -->
+<section class="day">
+  <div class="wrap">
+    <div class="dayhead">
+      <div>
+        <div class="eyebrow" style="--dot:var(--saffron)">День в саду</div>
+        <h2>Радуга — это ещё и про распорядок</h2>
+      </div>
+    </div>
+    <div class="spectrum">
+      <div class="slot s1 rise"><div class="t">08:00 — 09:00</div><div class="n">Встреча</div><div class="d">Приём детей, свободная игра, зарядка</div></div>
+      <div class="slot s2 rise"><div class="t">09:00 — 12:00</div><div class="n">Занятия</div><div class="d">Развитие речи, логика, творчество, английский</div></div>
+      <div class="slot s3 rise"><div class="t">12:00 — 15:00</div><div class="n">Прогулка и сон</div><div class="d">Своя площадка, обед из четырёх блюд, тихий час</div></div>
+      <div class="slot s4 rise"><div class="t">15:00 — 17:00</div><div class="n">Студии</div><div class="d">Танцы, лепка, музыка — по выбору родителей</div></div>
+      <div class="slot s5 rise"><div class="t">17:00 — 19:00</div><div class="n">Домой</div><div class="d">Игры, ужин, разговор с воспитателем о дне</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ЧТО ВАЖНО -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow" style="--dot:var(--sage)">Что спрашивают чаще всего</div>
+    <h2 style="font-size:clamp(26px,4.2vw,40px); margin-top:14px">Ответы до того, как вы позвоните</h2>
+    <div class="grid four">
+      <div class="card rise"><div class="rule" style="--dot:var(--rose)"></div><h3>Группы до 12 детей</h3><p>Два взрослых на группу. Воспитатель успевает заметить каждого, а не только самого громкого.</p></div>
+      <div class="card rise"><div class="rule" style="--dot:var(--saffron)"></div><h3>Своя кухня</h3><p>Повар готовит на месте, меню на неделю висит в раздевалке и приходит вам в чат.</p></div>
+      <div class="card rise"><div class="rule" style="--dot:var(--sage)"></div><h3>Площадка во дворе</h3><p>Закрытая территория, гуляем дважды в день в любую погоду, кроме морозов ниже −20.</p></div>
+      <div class="card rise"><div class="rule" style="--dot:var(--sea)"></div><h3>Видео в приложении</h3><p>Камеры в группе и на площадке. Доступ только у родителей этой группы.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ГРУППЫ -->
+<section style="background:var(--card); border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="eyebrow" style="--dot:var(--sea)">Группы и стоимость</div>
+    <h2 style="font-size:clamp(26px,4.2vw,40px); margin-top:14px">Три возраста, три ритма</h2>
+    <div class="grid">
+      <div class="card group rise">
+        <div class="age">1,5 — 3 года</div>
+        <h3>Малыши</h3>
+        <div class="price">24 000 ₽ <span>/ месяц</span></div>
+        <ul><li>Полный день, 08:00–19:00</li><li>Адаптация с мамой первую неделю</li><li>Четырёхразовое питание</li></ul>
+      </div>
+      <div class="card group rise">
+        <div class="age">3 — 5 лет</div>
+        <h3>Средняя группа</h3>
+        <div class="price">26 000 ₽ <span>/ месяц</span></div>
+        <ul><li>Английский три раза в неделю</li><li>Логопед по запросу</li><li>Две студии на выбор</li></ul>
+      </div>
+      <div class="card group rise">
+        <div class="age">5 — 7 лет</div>
+        <h3>Подготовка к школе</h3>
+        <div class="price">28 000 ₽ <span>/ месяц</span></div>
+        <ul><li>Чтение, счёт, письмо</li><li>Занятия с психологом</li><li>Готовность к первому классу</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ОТЗЫВЫ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow" style="--dot:var(--plum)">Отзывы</div>
+    <h2 style="font-size:clamp(26px,4.2vw,40px); margin-top:14px">125 отзывов и рейтинг 5,0</h2>
+    <div class="quotes">
+      <div class="quote rise"><p>«Дочь пошла в три года и через месяц перестала плакать по утрам. Воспитатель каждый вечер рассказывает, что было за день — не отпиской, а по-человечески.»</p><div class="who">Анна, мама Сони</div></div>
+      <div class="quote rise"><p>«Выбирали между четырьмя садами. Здесь единственные показали кухню и дали посмотреть, как проходит занятие, а не просто провели по коридору.»</p><div class="who">Дмитрий, папа Марка</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ФОРМА -->
+<section id="zapis" style="padding-top:0">
+  <div class="wrap">
+    <div class="form">
+      <h2>Приходите посмотреть</h2>
+      <p class="sub">Экскурсия занимает минут двадцать: покажем группу, кухню и площадку, познакомим с воспитателем. Бесплатно и ни к чему не обязывает.</p>
+      <div class="fields">
+        <input type="text" placeholder="Как вас зовут" aria-label="Имя">
+        <input type="tel" placeholder="Телефон" aria-label="Телефон">
+        <button type="button" onclick="this.textContent='Заявка отправлена'">Записаться</button>
+      </div>
+      <p class="note">В демо-версии форма ничего не отправляет. На рабочем сайте заявка приходит в WhatsApp и на почту.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div>Детский сад «Радуга» · Новосибирск</div>
+    <div><a href="tel:+79232299044">+7 923 229-90-44</a></div>
+    <div>Демонстрационный макет</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.rise');
+  if(!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(function(e){e.classList.add('in')}); return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en,i){
+      if(en.isIntersecting){
+        var d=Array.prototype.indexOf.call(en.target.parentNode.children,en.target);
+        en.target.style.transitionDelay=Math.min(d,5)*70+'ms';
+        en.target.classList.add('in'); io.unobserve(en.target);
+      }
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>

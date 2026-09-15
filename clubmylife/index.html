@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Внутренний маршрут</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&family=Oranienbaum&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EF; --ink:#27222F; --ink-soft:#6E6577; --card:#FFFFFF; --line:#E8E0D6;
+  --gold:#C48F2A; --gold-soft:#F3E6CC; --plum:#6B5687; --plum-soft:#EEE8F3;
+  --ok:#5F8A5B; --ok-soft:#E4EEDF; --warn:#B4652A; --warn-soft:#F6E3D4;
+  --gut:clamp(18px,5vw,64px); --r:16px; --r-s:10px;
+  --display:'Oranienbaum',Georgia,'Times New Roman',serif;
+  --body:'Onest',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1721; --ink:#F2ECE3; --ink-soft:#B5ABBE; --card:#241F2D; --line:#3A3346;
+    --gold:#E2B453; --gold-soft:#3C3120; --plum:#B79ED0; --plum-soft:#2E2739;
+    --ok:#9CC496; --ok-soft:#27332A; --warn:#E39A63; --warn-soft:#3A2A1F;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1721; --ink:#F2ECE3; --ink-soft:#B5ABBE; --card:#241F2D; --line:#3A3346;
+  --gold:#E2B453; --gold-soft:#3C3120; --plum:#B79ED0; --plum-soft:#2E2739;
+  --ok:#9CC496; --ok-soft:#27332A; --warn:#E39A63; --warn-soft:#3A2A1F;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-weight:400;font-family:var(--display);line-height:1.08;text-wrap:balance;letter-spacing:.005em}
+h3,h4{font-family:var(--body);font-weight:600;letter-spacing:-.01em;line-height:1.25}
+p{margin:0}
+a{color:inherit}
+ul{margin:0;padding-left:20px}
+li{margin-bottom:6px}
+img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:var(--gut)}
+.narrow{max-width:66ch}
+section{padding-block:clamp(48px,8vw,92px)}
+section + section{border-top:1px solid var(--line)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--plum);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px}
+.h2{font-size:clamp(30px,4.6vw,46px);margin-top:12px}
+.sect-note{margin-top:14px;font-size:16px;color:var(--ink-soft);max-width:58ch}
+.muted{color:var(--ink-soft)}
+.small{font-size:14px}
+.mt{margin-top:24px}
+.tabular{font-variant-numeric:tabular-nums}
+
+/* demo bar */
+.demobar{background:var(--ink);color:var(--paper);font-size:13px;line-height:1.5;padding:10px var(--gut);text-align:center}
+.demobar b{font-weight:600}
+
+/* header + nav */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--paper);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1.15}
+.brand .n{font-family:var(--display);font-size:22px}
+.brand .s{font-size:12px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.tg-top{display:none;text-decoration:none;font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--paper);white-space:nowrap}
+@media(min-width:720px){.tg-top{display:inline-block}}
+.tabs{border-bottom:1px solid var(--line);background:var(--paper)}
+.tabs .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;text-decoration:none;font-size:14px;font-weight:500;padding:8px 14px;border-radius:999px;border:1px solid transparent;color:var(--ink-soft);white-space:nowrap}
+.tab.on{border-color:var(--line);background:var(--card);color:var(--ink);font-weight:600}
+.tab:hover{color:var(--ink)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:16px;padding:14px 24px;border-radius:999px;border:1px solid transparent;transition:transform .18s,background .18s}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn.gold{background:var(--gold);color:#1F1706}
+.btn.sm{font-size:14px;padding:10px 16px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.link{font-weight:600;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--gold)}
+
+/* hero */
+.hero{padding-top:clamp(36px,6vw,72px);padding-bottom:clamp(36px,6vw,72px)}
+.herogrid{display:grid;gap:clamp(24px,5vw,56px);grid-template-columns:1fr}
+@media(min-width:900px){.herogrid{grid-template-columns:1.1fr .9fr;align-items:center}}
+.hero h1{font-size:clamp(38px,7vw,72px);line-height:1.02}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero .lede{margin-top:20px;font-size:clamp(17px,2.1vw,20px);color:var(--ink-soft);max-width:44ch}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13.5px;font-weight:500}
+
+/* photo frames (заглушки под съёмку) */
+.photo{border-radius:var(--r);border:1px dashed var(--line);background:var(--card);display:grid;place-items:center;text-align:center;color:var(--ink-soft);font-size:14px;padding:22px;line-height:1.4;max-width:100%}
+.photo b{display:block;font-weight:600;color:var(--ink);margin-bottom:4px}
+.photo.p43{aspect-ratio:4/3}
+.photo.p34{aspect-ratio:3/4}
+.photo.p169{aspect-ratio:16/9}
+.shots{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-top:28px}
+@media(min-width:760px){.shots{grid-template-columns:repeat(4,1fr)}}
+
+/* маршрут (шаги) */
+.route{display:grid;gap:0;margin-top:34px;grid-template-columns:1fr;position:relative}
+.stop{position:relative;padding:6px 0 26px 34px}
+.stop::before{content:"";position:absolute;left:9px;top:14px;bottom:-6px;border-left:2px dashed var(--gold);opacity:.7}
+.stop:last-child::before{display:none}
+.stop .dot{position:absolute;left:0;top:8px;width:20px;height:20px;border-radius:999px;background:var(--gold);color:#1F1706;font-size:11px;font-weight:800;display:grid;place-items:center;font-family:var(--body)}
+.stop h3{font-size:18px}
+.stop p{font-size:15px;color:var(--ink-soft);margin-top:6px;max-width:48ch}
+.stop a{font-size:14px;font-weight:600;display:inline-block;margin-top:8px;text-decoration:none;color:var(--plum);border-bottom:1px solid var(--plum)}
+@media(min-width:900px){
+  .route{grid-template-columns:repeat(4,1fr);gap:20px}
+  .stop{padding:34px 8px 0 0}
+  .stop::before{left:22px;right:-20px;top:9px;bottom:auto;border-left:0;border-top:2px dashed var(--gold)}
+  .stop .dot{left:0;top:0}
+}
+
+/* ритм недели */
+.week{display:grid;gap:8px;margin-top:34px;grid-template-columns:1fr}
+@media(min-width:680px){.week{grid-template-columns:repeat(5,1fr)}}
+.day{background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:16px 16px 18px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit}
+.day .d{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
+.day .t{font-family:var(--display);font-size:24px;line-height:1.1;margin-top:4px}
+.day .n{font-size:15px;font-weight:600;margin-top:4px}
+.day .w{font-size:13.5px;color:var(--ink-soft)}
+.day.main{background:var(--gold-soft);border-color:transparent}
+.day.main .d{color:var(--ink)}
+
+/* афиша */
+.afisha{display:grid;gap:12px;margin-top:30px}
+.ev{display:grid;grid-template-columns:76px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 18px 16px;align-items:start}
+.ev .date{text-align:center;border-right:1px solid var(--line);padding-right:12px}
+.ev .date .dd{font-family:var(--display);font-size:34px;line-height:1}
+.ev .date .mm{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.ev .date .wd{font-size:12px;color:var(--plum);font-weight:600;margin-top:2px}
+.ev .body{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ev h3{font-size:18px}
+.ev .meta{font-size:14px;color:var(--ink-soft)}
+.ev .price{font-size:15px;font-weight:600;margin-top:2px}
+.ev .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.pill{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;padding:5px 10px;border-radius:999px;background:var(--plum-soft);color:var(--plum)}
+.pill.open{background:var(--ok-soft);color:var(--ok)}
+.pill.few{background:var(--warn-soft);color:var(--warn)}
+.pill.soon{background:var(--plum-soft);color:var(--plum)}
+.pill.live{background:var(--gold-soft);color:#7A5711}
+:root[data-theme="dark"] .pill.live{color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pill.live{color:var(--gold)}}
+.ev .type{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.empty{border:1px dashed var(--line);border-radius:var(--r);padding:22px;color:var(--ink-soft);font-size:15px;margin-top:30px}
+
+/* карточки */
+.grid{display:grid;gap:14px;margin-top:34px;grid-template-columns:1fr}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.grid.three{grid-template-columns:repeat(3,1fr)}.grid.four{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px 24px;display:flex;flex-direction:column;gap:8px}
+.card h3{font-size:19px}
+.card p{font-size:15px;color:var(--ink-soft)}
+.card .tag{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--plum)}
+.card .from{margin-top:auto;padding-top:10px;font-family:var(--display);font-size:24px;line-height:1}
+.card .from span{font-family:var(--body);font-size:13px;color:var(--ink-soft);margin-left:6px}
+.card .go{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--gold);align-self:flex-start;margin-top:6px}
+
+/* про страницу формата */
+.pagehead{padding-top:clamp(30px,5vw,56px);padding-bottom:clamp(24px,4vw,40px)}
+.pagehead h1{font-size:clamp(34px,6vw,60px)}
+.pagehead .lede{margin-top:16px;font-size:18px;color:var(--ink-soft);max-width:52ch}
+.kv{display:grid;gap:10px;margin-top:26px;grid-template-columns:1fr}
+@media(min-width:640px){.kv{grid-template-columns:repeat(3,1fr)}}
+.kv > div{background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:14px 16px}
+.kv .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.kv .v{font-size:16px;font-weight:600;margin-top:4px}
+.prices{display:grid;gap:10px;margin-top:22px;grid-template-columns:1fr}
+@media(min-width:640px){.prices{grid-template-columns:repeat(3,1fr)}}
+.pr{background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:16px 18px}
+.pr .n{font-size:13px;color:var(--ink-soft)}
+.pr .v{font-family:var(--display);font-size:30px;line-height:1.05;margin-top:6px}
+.pr .v span{font-family:var(--body);font-size:13px;color:var(--ink-soft)}
+.pr.hot{border-color:var(--gold);background:var(--gold-soft)}
+.two{display:grid;gap:clamp(24px,4vw,48px);grid-template-columns:1fr}
+@media(min-width:880px){.two{grid-template-columns:1fr 1fr;align-items:start}}
+.list{margin-top:18px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.list li{position:relative;padding-left:22px;font-size:16px}
+.list li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:10px;border-radius:999px;background:var(--gold)}
+.faq{margin-top:28px;display:grid;gap:10px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:4px 18px}
+.faq summary{cursor:pointer;font-weight:600;padding:12px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1;font-family:var(--display)}
+.faq details[open] summary::after{content:"–"}
+.faq p{padding-bottom:14px;font-size:15px;color:var(--ink-soft)}
+.quotes{display:grid;gap:14px;margin-top:28px;grid-template-columns:1fr}
+@media(min-width:820px){.quotes{grid-template-columns:1fr 1fr}}
+.quote{background:var(--card);border:1px dashed var(--line);border-radius:var(--r);padding:22px}
+.quote .tag{display:inline-block;margin-bottom:10px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.quote p{font-size:15.5px;color:var(--ink-soft)}
+.results{background:var(--plum-soft);border-radius:var(--r);padding:24px 22px;margin-top:14px}
+.results h3{font-size:16px;color:var(--plum);margin-bottom:8px}
+.results ul{columns:1;font-size:15px}
+@media(min-width:640px){.results ul{columns:2;column-gap:28px}}
+.steps{display:grid;gap:14px;margin-top:30px;grid-template-columns:1fr}
+@media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.step .num{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;font-size:14px;font-weight:800;color:#1F1706;background:var(--gold);margin-bottom:12px}
+.step h3{font-size:17px}
+.step p{font-size:15px;color:var(--ink-soft);margin-top:6px}
+.days{display:grid;gap:10px;margin-top:22px}
+.dayrow{display:grid;grid-template-columns:64px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:14px 16px}
+.dayrow .n{font-family:var(--display);font-size:22px;color:var(--plum)}
+.dayrow p{font-size:15px;color:var(--ink-soft)}
+.dayrow b{display:block;font-weight:600;color:var(--ink);font-size:15.5px}
+.tariffs{display:grid;gap:12px;margin-top:22px;grid-template-columns:1fr}
+@media(min-width:680px){.tariffs{grid-template-columns:1fr 1fr}}
+.tarif{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.tarif h3{font-size:18px}
+.tarif .v{font-family:var(--display);font-size:32px;margin-top:8px;line-height:1}
+.tarif .v span{font-family:var(--body);font-size:13px;color:var(--ink-soft)}
+.tarif ul{margin-top:12px;font-size:15px;color:var(--ink-soft)}
+.note{margin-top:16px;font-size:14px;color:var(--ink-soft);border-left:3px solid var(--gold);padding-left:12px}
+.callout{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,4vw,36px);margin-top:30px}
+.callout h3{font-size:20px}
+.callout p{margin-top:8px;color:var(--ink-soft);font-size:15.5px;max-width:60ch}
+.cta-band{background:var(--ink);color:var(--paper);border-radius:var(--r);padding:clamp(26px,4.5vw,44px);margin-top:36px}
+.cta-band h2{font-size:clamp(26px,3.6vw,36px)}
+.cta-band p{margin-top:10px;color:#CFC6D6;max-width:52ch;font-size:16px}
+.cta-band .btn.primary{background:var(--gold);color:#1F1706}
+.hashline{margin-top:22px;font-size:14px;color:var(--ink-soft)}
+.hashline a{font-weight:600;color:var(--plum)}
+
+/* обо мне */
+.regalia{display:grid;gap:10px;margin-top:24px;grid-template-columns:1fr}
+@media(min-width:640px){.regalia{grid-template-columns:1fr 1fr}}
+.reg{background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:14px 16px;font-size:15px}
+.reg b{display:block;font-family:var(--display);font-size:26px;line-height:1;margin-bottom:4px;font-weight:400}
+
+/* подвал */
+footer{border-top:1px solid var(--line);padding-block:36px 44px;font-size:15px;color:var(--ink-soft)}
+.fgrid{display:grid;gap:22px;grid-template-columns:1fr}
+@media(min-width:760px){.fgrid{grid-template-columns:1.2fr 1fr 1fr}}
+footer h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:8px}
+footer a{text-decoration:none;font-weight:500;color:var(--ink)}
+footer .links{display:flex;flex-direction:column;gap:6px}
+footer .legal{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:13px}
+
+/* плавающая кнопка */
+.float{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--gold);color:#1F1706;text-decoration:none;font-weight:600;font-size:15px;padding:13px 20px;border-radius:999px;box-shadow:0 10px 26px rgba(39,34,47,.22)}
+@media(min-width:900px){.float{right:28px;bottom:28px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+.view[hidden]{display:none}
+</style>
+</head>
+<body>
+
+
+<div class="demobar"><b>Макет для обсуждения.</b> Тексты и цены — из канала на 15.09.2026, фото — рамки под съёмку, «Ближайшее» — пример данных из таблицы-афиши.</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#/"><span class="n">Внутренний маршрут</span><span class="s">Ольга Осипова · Новосибирск и онлайн</span></a>
+    <a class="tg-top" data-tg="Здравствуйте! Пишу с сайта, хочу узнать о практиках" href="https://t.me/Ol_ster">Написать в Telegram</a>
+  </div>
+</header>
+<nav class="tabs" aria-label="Разделы сайта">
+  <div class="wrap">
+    <a class="tab" href="#/" data-view="home">Главная</a>
+    <a class="tab" href="#/praktiki" data-view="praktiki">Практики</a>
+    <a class="tab" href="#/kursy" data-view="kursy">Курсы и группы</a>
+    <a class="tab" href="#/personalno" data-view="personalno">Персонально</a>
+    <a class="tab" href="#/puteshestviya" data-view="puteshestviya">Путешествия</a>
+    <a class="tab" href="#/afisha" data-view="afisha">Афиша</a>
+    <a class="tab" href="#/o-mne" data-view="o-mne">Обо мне</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ================= ГЛАВНАЯ ================= -->
+<div class="view" id="v-home">
+  <section class="hero">
+    <div class="wrap herogrid">
+      <div>
+        <p class="eyebrow">Йога внимания · Раджа-йога · путешествия</p>
+        <h1 style="margin-top:14px">Практики, которые возвращают внимание <em>к себе</em></h1>
+        <p class="lede">Воскресная Йога внимания в Новосибирске, онлайн-курс Раджа-йоги, гвозди, женские встречи и авторские поездки — на Алтай, в Шерегеш, в Шанхай. Всё, чем я делюсь в канале, — здесь, на одной карте.</p>
+        <div class="facts">
+          <span class="fact">15 лет в туризме · 45 стран</span>
+          <span class="fact">методика, собранная в 45 странах</span>
+          <span class="fact">500 человек прошли гвозди</span>
+          <span class="fact">команды Сбербанка и Транснефти</span>
+        </div>
+        <div class="btns">
+          <a class="btn primary" href="#/yoga-vnimaniya">Прийти в воскресенье</a>
+          <a class="btn ghost" href="#/afisha">Смотреть афишу</a>
+        </div>
+      </div>
+      <div class="photo p43"><b>Портрет Оли</b>тёплый свет, зал «Зодиак» или набережная; горизонтальный кадр</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">С чего начать</p>
+      <h2 class="h2">Маршрут: от первой практики до гор</h2>
+      <p class="sect-note">Форматов много, но идти по ним просто. Начни с того шага, который откликается, — остальное подскажет состояние.</p>
+      <div class="route">
+        <div class="stop"><span class="dot">1</span><h3>Попробовать</h3><p>Прийти на воскресную практику, послушать эфир в среду или записаться на 30-минутную диагностику.</p><a href="#/yoga-vnimaniya">Йога внимания →</a></div>
+        <div class="stop"><span class="dot">2</span><h3>Пройти курс</h3><p>Раджа-йога, 1 ступень: семь онлайн-занятий, чтобы научиться управлять вниманием и состоянием.</p><a href="#/radzha-yoga">О курсе →</a></div>
+        <div class="stop"><span class="dot">3</span><h3>Пойти глубже</h3><p>Вторая ступень, персональное сопровождение на 8–10 недель или группа наставничества.</p><a href="#/personalno">Персонально →</a></div>
+        <div class="stop"><span class="dot">4</span><h3>Уехать</h3><p>Озёра Красной горы летом, Шерегеш зимой, Шанхай с «Девчатами на вылете» — путешествия внутрь через дорогу.</p><a href="#/puteshestviya">Путешествия →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ритм недели</p>
+      <h2 class="h2">Каждую неделю — одно и то же время</h2>
+      <p class="sect-note">Дни и часы не меняются месяцами, поэтому их можно запомнить. Актуальные темы и запись — в канале по понедельникам.</p>
+      <div class="week">
+        <a class="day" href="https://t.me/clubmylife" target="_blank" rel="noopener"><span class="d">Понедельник</span><span class="t">канал</span><span class="n">Расписание недели и МАК-карта</span><span class="w">в Telegram</span></a>
+        <a class="day" href="#/praktiki"><span class="d">Вторник</span><span class="t">20:30</span><span class="n">Йога-нидра</span><span class="w">«Зодиак», Гоголя 15 · 1 час</span></a>
+        <a class="day" href="https://t.me/clubmylife" target="_blank" rel="noopener"><span class="d">Среда</span><span class="t">20:00</span><span class="n">Прямой эфир</span><span class="w">в канале, запись остаётся</span></a>
+        <a class="day" href="#/praktiki"><span class="d">Суббота</span><span class="t">день</span><span class="n">Женская встреча</span><span class="w">Новосибирск, тема недели</span></a>
+        <a class="day main" href="#/yoga-vnimaniya"><span class="d">Воскресенье</span><span class="t">10:00</span><span class="n">Йога внимания</span><span class="w">«Зодиак», Гоголя 15 · 2 часа</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ближайшее</p>
+      <h2 class="h2">Что открыто прямо сейчас</h2>
+      <p class="sect-note">Потоки, заезды и игры с датами. Этот блок сайт берёт из таблицы-афиши: Оля меняет строку в таблице — сайт обновляется сам, прошедшее исчезает.</p>
+      <div class="afisha" data-afisha data-limit="5"></div>
+      <div class="btns"><a class="btn ghost" href="#/afisha">Вся афиша</a></div>
+    </div>
+  </section>
+
+  <section id="praktiki-home">
+    <div class="wrap">
+      <p class="eyebrow">Практики в Новосибирске</p>
+      <h2 class="h2">Живые встречи в «Зодиаке»</h2>
+      <div class="grid four">
+        <div class="card"><span class="tag">воскресенье</span><h3>Йога внимания</h3><p>Авторская методика: тело, дыхание, работа с мыслями и состоянием. Два часа и чай после.</p><div class="from">1 500 ₽<span>пробное занятие</span></div><a class="go" href="#/yoga-vnimaniya">Подробнее</a></div>
+        <div class="card"><span class="tag">вторник</span><h3>Йога-нидра</h3><p>Глубокое расслабление лёжа, следуя за голосом. Вечером, чтобы никуда не спешить после.</p><div class="from">700 ₽<span>пробное занятие</span></div><a class="go" href="#/praktiki">Подробнее</a></div>
+        <div class="card"><span class="tag">внутри практик и лично</span><h3>Гвоздетерапия</h3><p>Доски Садху как способ расслабиться, а не терпеть. В группе, в паре и на персональной сессии.</p><div class="from">в группе<span>в цене занятия</span></div><a class="go" href="#/praktiki">Подробнее</a></div>
+        <div class="card"><span class="tag">суббота</span><h3>Женские встречи</h3><p>Пикники, рисование, настолки, SPA-девичники, разговоры о своём. Обычно бесплатно.</p><div class="from">свободно<span>запись в канале</span></div><a class="go" href="#/praktiki">Подробнее</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Курсы и группы онлайн</p>
+      <h2 class="h2">Из любой точки мира</h2>
+      <div class="grid three">
+        <div class="card"><span class="tag">флагман · 7 недель</span><h3>Раджа-йога, 1 ступень</h3><p>Медитации, дыхание, работа с вниманием. Занятия раз в неделю, задания, чат, записи.</p><div class="from">25 000 ₽<span>за поток</span></div><a class="go" href="#/radzha-yoga">О курсе</a></div>
+        <div class="card"><span class="tag">продолжение</span><h3>Раджа-йога, 2 ступень</h3><p>Для тех, кто прошёл первую. Глубже в состояние, энергию и практику в повседневности.</p><div class="from">по запросу<span>после 1 ступени</span></div><a class="go" href="#/kursy">Подробнее</a></div>
+        <div class="card"><span class="tag">декабрь</span><h3>Чакральное здоровье</h3><p>Семь дней — семь чакр перед Новым годом: очищаем, расширяем, наполняем. Только раз в году.</p><div class="from">5 555 ₽<span>7 дней</span></div><a class="go" href="#/kursy">Подробнее</a></div>
+        <div class="card"><span class="tag">игра · 2 часа</span><h3>«Очередь из денег»</h3><p>Трансформационная игра про отношения с деньгами и то, что мешает росту. Онлайн и офлайн.</p><div class="from">3 500 ₽<span>участие</span></div><a class="go" href="#/kursy">Подробнее</a></div>
+        <div class="card"><span class="tag">12 недель</span><h3>Групповое наставничество</h3><p>Небольшая группа до 10 человек: цели, движение, поддержка и социальный капитал.</p><div class="from">по запросу<span>наборы 2–3 раза в год</span></div><a class="go" href="#/kursy">Подробнее</a></div>
+        <div class="card"><span class="tag">сезонно</span><h3>Марафоны и интенсивы</h3><p>12 дней «Прорыва» в коридоре затмений, «Энергия жизни» на Вратах Льва, практики в дни силы.</p><div class="from">от 2 700 ₽<span>марафон</span></div><a class="go" href="#/kursy">Подробнее</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Путешествия</p>
+      <h2 class="h2">Дорога как практика</h2>
+      <p class="sect-note">Камерные группы, знакомые места и практики в пути. Организацию беру на себя — за плечами 15 лет турагентства.</p>
+      <div class="grid three">
+        <div class="card"><div class="photo p43" style="margin-bottom:8px"><b>Красная гора</b>озеро, сапы, палатки, вид на Белуху</div><span class="tag">Алтай · каждый июль</span><h3>Озёра Красной горы</h3><p>Шесть дней в высокогорье: все семь озёр, рассветы, костёр, сапы и практики. До 12 человек.</p><div class="from">от 43 000 ₽<span>тариф «Турист»</span></div><a class="go" href="#/krasnaya-gora">Подробнее</a></div>
+        <div class="card"><div class="photo p43" style="margin-bottom:8px"><b>Шерегеш</b>склон, коттедж, баня, компания</div><span class="tag">декабрь и февраль</span><h3>Шерегеш «Всё включено»</h3><p>Трансфер из Новосибирска, коттедж, завтраки и ужины, баня, помощь новичкам на склоне.</p><div class="from">от 45 000 ₽<span>цена для своих</span></div><a class="go" href="#/puteshestviya">Подробнее</a></div>
+        <div class="card"><div class="photo p43" style="margin-bottom:8px"><b>Шанхай</b>наряды, город, фотосессия</div><span class="tag">«Девчата на вылете»</span><h3>Шанхай со стилистом</h3><p>Женское путешествие-реалити: город контрастов, Суджоу, шопинг со стилистом, практики и фотосессия.</p><div class="from">130 000 ₽<span>12–19 октября</span></div><a class="go" href="#/puteshestviya">Подробнее</a></div>
+      </div>
+      <p class="hashline">Любое другое путешествие — билеты, отели, туры — организует моё агентство <a href="https://t.me/my_happyticket" target="_blank" rel="noopener">Happy Ticket</a>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Обо мне</p>
+        <h2 class="h2">Ольга Осипова</h2>
+        <p class="sect-note" style="max-width:none;margin-top:18px;font-size:17px;color:var(--ink)">Наставник, энерготерапевт, предприниматель. Пятнадцать лет собственного турагентства и 45 стран научили меня одному: состояние решает. Из монастырей Непала, ашрамов Индии и с костров Горного Алтая я собрала метод работы с вниманием — «Йогу внимания» — и делюсь им в Новосибирске и онлайн.</p>
+        <ul class="list">
+          <li>Сертифицированный гвоздетерапевт, преподаватель Раджа-йоги</li>
+          <li>Обучение в Непале (Намобудда) и в Индии</li>
+          <li>Практики для команд Сбербанка и Транснефти, выступления на фестивале «Поле» и в НГТУ</li>
+          <li>Игропрактик «Очереди из денег», член «Опоры России»</li>
+        </ul>
+        <div class="btns"><a class="btn ghost" href="#/o-mne">Вся история</a></div>
+      </div>
+      <div class="photo p34"><b>Оля в пути</b>Алтай или Непал, вертикальный кадр, живая эмоция</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Отзывы</p>
+      <h2 class="h2">Что меняется после практик</h2>
+      <div class="results">
+        <h3>Ученицы первых потоков Раджа-йоги замечали</h3>
+        <ul><li>больше энергии</li><li>ушли телесные зажимы</li><li>улучшилось самочувствие</li><li>отношения стали мягче</li><li>появилось творчество</li><li>спокойнее и теплее внутри</li></ul>
+      </div>
+      <div class="quotes">
+        <div class="quote"><span class="tag">образец вёрстки</span><p>Сюда встанет настоящий отзыв из канала — с именем и городом. Тексты и скрины уже собраны под хэштегом #отзыв_внутренниймаршрут, их больше тридцати.</p></div>
+        <div class="quote"><span class="tag">образец вёрстки</span><p>Второй отзыв — про воскресную практику или гвозди. Лучше всего работают три-четыре предложения от первого лица.</p></div>
+      </div>
+      <p class="hashline">Все отзывы — <a href="https://t.me/s/clubmylife?q=%23%D0%BE%D1%82%D0%B7%D1%8B%D0%B2_%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B8%D0%B9%D0%BC%D0%B0%D1%80%D1%88%D1%80%D1%83%D1%82" target="_blank" rel="noopener">в канале по хэштегу</a>. Рейтинг поездок на YouTravel — 4,9.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Эфиры и записи</p>
+      <h2 class="h2">Каждую среду — новый разговор</h2>
+      <p class="sect-note">Прямые эфиры выходят в канале, записи остаются на Rutube, VK и YouTube. Несколько тем последних месяцев:</p>
+      <div class="grid three">
+        <div class="card"><span class="tag">эфир</span><h3>«Магия утра». Три шага к быстрому пробуждению</h3><p>Какие утренние практики реально работают и почему «радостно встать» начинается с вечера.</p><a class="go" href="https://t.me/clubmylife/3114" target="_blank" rel="noopener">Смотреть запись</a></div>
+        <div class="card"><span class="tag">эфир</span><h3>«Главная валюта». Как управлять вниманием</h3><p>За наше внимание борются все. Как вернуть его себе и получать от жизни то, что хочется.</p><a class="go" href="https://t.me/clubmylife/3176" target="_blank" rel="noopener">Смотреть запись</a></div>
+        <div class="card"><span class="tag">эфир</span><h3>«Поход к Белухе». Практики единства с природой</h3><p>Почему поход — самая быстрая «таблетка» энергии и с чего начался мой путь на Алтай.</p><a class="go" href="https://t.me/clubmylife/3227" target="_blank" rel="noopener">Смотреть запись</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Как записаться</p>
+      <h2 class="h2">Три шага — и ты в практике</h2>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>Напиши в Telegram</h3><p>Кнопка на любой странице открывает чат со мной с уже готовым текстом — просто отправь.</p></div>
+        <div class="step"><div class="num">2</div><h3>Договоримся о дате</h3><p>Подтвержу место в группе или подберу поток. Оплата — переводом после подтверждения.</p></div>
+        <div class="step"><div class="num">3</div><h3>Приходи или подключайся</h3><p>Офлайн — в «Зодиак» на Гоголя 15. Онлайн — ссылка придёт накануне.</p></div>
+      </div>
+      <div class="faq">
+        <details><summary>Где проходят офлайн-практики?</summary><p>Пространство «Зодиак», ул. Гоголя 15, 7 этаж, Новосибирск. С собой — свободная одежда и сменная обувь, чтобы дойти до зала: занимаемся в носочках. Маска на глаза и доски Садху — по желанию.</p></details>
+        <details><summary>Можно ли новичку?</summary><p>Да. На воскресной практике и в первой ступени Раджа-йоги нет требований к опыту, а на гвозди я ставлю бережно — про расслабление, а не про терпение.</p></details>
+        <details><summary>Есть ли онлайн?</summary><p>Курсы, марафоны, игра и часть практик проходят онлайн; воскресная Йога внимания иногда идёт в двух форматах — об этом пишу в анонсе.</p></details>
+        <details><summary>Что с ценами и датами?</summary><p>Даты потоков и заездов — в афише и в канале. Цены на регулярные практики и курс не меняются месяцами, у поездок есть ранняя бронь: чем раньше, тем дешевле.</p></details>
+      </div>
+      <div class="cta-band">
+        <h2>Начни с воскресенья</h2>
+        <p>Йога внимания — каждую неделю в 10:00. Напиши, и я запишу тебя на ближайшее занятие.</p>
+        <div class="btns"><a class="btn primary" data-tg="Здравствуйте! Хочу прийти на воскресную Йогу внимания" href="https://t.me/Ol_ster">Записаться в Telegram</a><a class="btn ghost" style="border-color:#5A5266;color:var(--paper)" href="https://t.me/clubmylife" target="_blank" rel="noopener">Подписаться на канал</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ПРАКТИКИ (обзор) ================= -->
+<div class="view" id="v-praktiki" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Практики в Новосибирске</p>
+      <h1>Живые встречи каждую неделю</h1>
+      <p class="lede">Всё проходит в пространстве «Зодиак» на Гоголя 15, 7 этаж. Запись — в канале под анонсом или в личных сообщениях.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">воскресенье · 10:00–12:00</span><h3>Йога внимания</h3><p>Тело, дыхание, работа с мыслями и состоянием. Иногда — тематические дни: солнцестояние, аура, гвозди Садху.</p><div class="from">1 500 ₽<span>пробное · 2 500 разовое · 8 200 абонемент</span></div><a class="go" href="#/yoga-vnimaniya">Страница практики</a></div>
+        <div class="card"><span class="tag">вторник · 20:30–21:30</span><h3>Йога-нидра</h3><p>Практика глубокого расслабления и восстановления лёжа, следуя за голосом. Вечернее время выбрано специально: после — никуда не спешить.</p><div class="from">700 ₽<span>пробное · 1 000 разовое · 3 500 абонемент</span></div><a class="go" data-tg="Здравствуйте! Хочу на йога-нидру во вторник" href="https://t.me/Ol_ster">Записаться</a></div>
+        <div class="card"><span class="tag">внутри практик и лично</span><h3>Гвоздетерапия</h3><p>Мой первый инструмент. Доски быстрее слов показывают, где в теле напряжение; мы его дорасслабляем — и энергия снова течёт. Групповые и парные практики, индивидуальные сессии, обучение мастеров.</p><div class="from">в группе<span>в цене занятия · лично — по договорённости</span></div><a class="go" href="#/personalno">Лично и для мастеров</a></div>
+        <div class="card"><span class="tag">суббота</span><h3>Женские встречи</h3><p>Пикник в парке, рисование, настолки, SPA-девичник, разговоры о деньгах по-женски или о путешествиях. Тема недели — в понедельник в канале. Участие обычно свободное, тематические встречи — с небольшой оплатой.</p><div class="from">свободно<span>запись в комментариях к анонсу</span></div><a class="go" href="https://t.me/clubmylife" target="_blank" rel="noopener">Смотреть анонс</a></div>
+      </div>
+      <div class="afisha" data-afisha data-types="practice" data-limit="4"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ЙОГА ВНИМАНИЯ (страница формата) ================= -->
+<div class="view" id="v-yoga-vnimaniya" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Практика · Новосибирск</p>
+      <h1>Йога внимания</h1>
+      <p class="lede">Каждое воскресенье мы встречаемся, чтобы возвращать внимание внутрь и напоминать себе, как это — просто быть. Для тех, кто устал от шума мыслей и хочет энергии, ясности и тишины внутри.</p>
+      <div class="kv">
+        <div><div class="k">Когда</div><div class="v">воскресенье, 10:00–12:00</div></div>
+        <div><div class="k">Где</div><div class="v">«Зодиак», Гоголя 15, 7 этаж</div></div>
+        <div><div class="k">Формат</div><div class="v">офлайн · иногда онлайн</div></div>
+      </div>
+      <div class="btns"><a class="btn primary" data-tg="Здравствуйте! Хочу прийти на воскресную Йогу внимания" href="https://t.me/Ol_ster">Записаться в Telegram</a></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Как проходит</p>
+        <h2 class="h2">Два часа и чай после</h2>
+        <ul class="list">
+          <li>Мягкая работа с телом и дыханием — без акробатики, занимаемся в носочках</li>
+          <li>Практики внимания: замечать мысли и выбирать, куда направить фокус</li>
+          <li>Звук, медитация, по желанию — гвозди Садху</li>
+          <li>Полчаса разговоров и чая — это часть практики</li>
+        </ul>
+        <p class="note">Методика собрана из техник саморегуляции 45 стран — от монастырей Тибета до шаманских костров Горного Алтая.</p>
+      </div>
+      <div>
+        <div class="photo p43"><b>Зал «Зодиак»</b>группа на ковриках, утренний свет</div>
+        <div class="shots" style="grid-template-columns:repeat(2,1fr)">
+          <div class="photo p34"><b>Гвозди</b>стопы на доске, крупно</div>
+          <div class="photo p34"><b>Чай после</b>кружки, улыбки</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Стоимость</p>
+      <h2 class="h2">Приходи попробовать</h2>
+      <div class="prices">
+        <div class="pr"><div class="n">Пробное занятие</div><div class="v">1 500 ₽</div></div>
+        <div class="pr"><div class="n">Разовое посещение</div><div class="v">2 500 ₽</div></div>
+        <div class="pr hot"><div class="n">Абонемент на 4 занятия</div><div class="v">8 200 ₽ <span>2 050 ₽ за занятие</span></div></div>
+      </div>
+      <p class="note">Цены на регулярные практики не меняются месяцами. Если появится акция — она будет в афише и в анонсе.</p>
+      <div class="afisha" data-afisha data-types="practice" data-key="yoga" data-limit="2"></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Отзывы</p>
+      <h2 class="h2">После практики</h2>
+      <div class="quotes">
+        <div class="quote"><span class="tag">образец вёрстки</span><p>Отзыв про воскресную практику из канала — с именем и городом.</p></div>
+        <div class="quote"><span class="tag">образец вёрстки</span><p>Отзыв про гвозди: что почувствовала, что изменилось за неделю.</p></div>
+      </div>
+      <div class="faq">
+        <details><summary>Что взять с собой?</summary><p>Свободную одежду, не сковывающую движение и дыхание, и обувь, чтобы дойти от раздевалки до зала. Маска на глаза и доски Садху — по желанию.</p></details>
+        <details><summary>Как записаться?</summary><p>Напиши мне в Telegram или оставь комментарий под пятничным анонсом в канале. Запись обязательна — так я понимаю, сколько нас будет.</p></details>
+        <details><summary>Можно ли онлайн?</summary><p>Иногда воскресная практика идёт в двух форматах. Об этом я пишу в анонсе; если хочешь только онлайн — напиши, подберём.</p></details>
+      </div>
+      <p class="hashline">Все анонсы и впечатления — <a href="https://t.me/s/clubmylife?q=%23%D0%B9%D0%BE%D0%B3%D0%B0%D0%B2%D0%BD%D0%B8%D0%BC%D0%B0%D0%BD%D0%B8%D1%8F" target="_blank" rel="noopener">#йогавнимания в канале</a>.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ================= КУРСЫ (обзор) ================= -->
+<div class="view" id="v-kursy" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Онлайн-курсы и группы</p>
+      <h1>Системная практика из любой точки мира</h1>
+      <p class="lede">Курсы идут потоками несколько раз в год. Описание форматов — здесь и не меняется; ближайшие даты — в афише.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">флагман · 7 занятий</span><h3>Раджа-йога, 1 ступень</h3><p>Медитации, дыхание, работа с вниманием, задания на неделю, чат, записи занятий. Потоки — 3–4 раза в год.</p><div class="from">25 000 ₽</div><a class="go" href="#/radzha-yoga">Страница курса</a></div>
+        <div class="card"><span class="tag">продолжение</span><h3>Раджа-йога, 2 ступень</h3><p>Для тех, кто прошёл первую ступень: глубже в энергию, состояние и практику в повседневности. Можно забронировать обе ступени сразу.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Интересует 2 ступень Раджа-йоги" href="https://t.me/Ol_ster">Спросить об условиях</a></div>
+        <div class="card"><span class="tag">только в декабре</span><h3>Чакральное здоровье</h3><p>Семь дней — семь чакр перед Новым годом. Каждый день новая чакра, задание и практика; эфиры онлайн, запись остаётся на сутки.</p><div class="from">5 555 ₽</div><a class="go" data-tg="Здравствуйте! Хочу на курс «Чакральное здоровье» в декабре" href="https://t.me/Ol_ster">Занять место</a></div>
+        <div class="card"><span class="tag">игра · 1,5–2 часа</span><h3>«Очередь из денег»</h3><p>Трансформационная игра проекта Анны Мавричевой: увидеть свои сценарии с деньгами, главный «затык» и следующий шаг. Онлайн и офлайн, примерно раз в месяц.</p><div class="from">3 500 ₽<span>6 000 ₽ за двоих</span></div><a class="go" data-tg="Здравствуйте! Хочу на игру «Очередь из денег»" href="https://t.me/Ol_ster">В предзапись</a></div>
+        <div class="card"><span class="tag">12 недель · 6 встреч</span><h3>Групповое наставничество</h3><p>Группа до 10 человек: ставим цели, идём к ним, поддерживаем друг друга. Итог — движение и социальный капитал, который остаётся.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Интересует групповое наставничество" href="https://t.me/Ol_ster">Узнать о наборе</a></div>
+        <div class="card"><span class="tag">сезонно</span><h3>Марафоны и интенсивы</h3><p>Короткие форматы в дни силы: 12-дневный «Прорыв» в коридоре затмений, трёхнедельная «Энергия жизни» на Вратах Льва, практики на солнцестояние.</p><div class="from">от 2 700 ₽</div><a class="go" href="#/afisha">Смотреть в афише</a></div>
+      </div>
+      <div class="afisha" data-afisha data-types="course,game" data-limit="5"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= РАДЖА-ЙОГА (страница курса) ================= -->
+<div class="view" id="v-radzha-yoga" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Онлайн-курс · 1 ступень</p>
+      <h1>Раджа-йога</h1>
+      <p class="lede">Путь внимания, осознанности и работы с состоянием. Не теория: навык управлять вниманием, состоянием и — в итоге — своей жизнью. Для тех, кто готов навести порядок в мыслях и почувствовать опору внутри.</p>
+      <div class="kv">
+        <div><div class="k">Формат</div><div class="v">7 онлайн-занятий, раз в неделю</div></div>
+        <div><div class="k">Длительность</div><div class="v">около двух месяцев</div></div>
+        <div><div class="k">Стоимость</div><div class="v">25 000 ₽</div></div>
+      </div>
+      <div class="btns"><a class="btn primary" data-tg="Здравствуйте! Хочу на ближайший поток Раджа-йоги, 1 ступень" href="https://t.me/Ol_ster">Записаться на поток</a><a class="btn ghost" href="#/afisha">Когда старт</a></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">В программе</p>
+        <h2 class="h2">Семь недель — семь встреч</h2>
+        <ul class="list">
+          <li>Практики медитации, дыхания и работы с вниманием</li>
+          <li>Задания для самостоятельной практики между занятиями</li>
+          <li>Поддерживающий чат группы</li>
+          <li>Записи всех занятий — можно пересматривать</li>
+          <li>Присоединиться можно из любой точки мира</li>
+        </ul>
+        <p class="note">Это глубокая и честная работа с собой. Без «магии» и обещаний быстрых чудес — только то, что работает.</p>
+      </div>
+      <div>
+        <div class="results" style="margin-top:0">
+          <h3>Что замечали ученицы первых потоков</h3>
+          <ul><li>стало больше энергии</li><li>ушли телесные зажимы</li><li>улучшилось самочувствие</li><li>отношения стали мягче</li><li>появилось творчество и вдохновение</li><li>внутри стало спокойнее и теплее</li></ul>
+        </div>
+        <p class="hashline">Отзывы о курсе — <a href="https://t.me/s/clubmylife?q=%23%D1%80%D0%B0%D0%B4%D0%B6%D0%B0%D0%B9%D0%BE%D0%B3%D0%B0" target="_blank" rel="noopener">#раджайога в канале</a>.</p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ближайший поток</p>
+      <h2 class="h2">Старт объявляется за несколько недель</h2>
+      <p class="sect-note">Потоки идут 3–4 раза в год. Если даты не совпадают, можно сохранить место в следующем потоке по текущей цене или подобрать индивидуальный формат.</p>
+      <div class="afisha" data-afisha data-key="radzha" data-limit="2"></div>
+      <div class="faq">
+        <details><summary>Я никогда не медитировала. Получится?</summary><p>Получится. Первая ступень рассчитана на тех, кто начинает с нуля, а практики короткие и встроены в обычную жизнь.</p></details>
+        <details><summary>Что, если пропущу занятие?</summary><p>Записи всех занятий остаются, а задания на неделю помогают не выпасть из процесса.</p></details>
+        <details><summary>Что дальше после первой ступени?</summary><p>Вторая ступень — глубже в энергию и состояние. Обе ступени можно забронировать сразу.</p></details>
+      </div>
+      <div class="cta-band">
+        <h2>Занять место в потоке</h2>
+        <p>Напиши мне — расскажу о курсе подробнее и помогу понять, подходит ли тебе первая ступень прямо сейчас.</p>
+        <div class="btns"><a class="btn primary" data-tg="Здравствуйте! Хочу на ближайший поток Раджа-йоги, 1 ступень" href="https://t.me/Ol_ster">Написать в Telegram</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ПЕРСОНАЛЬНО ================= -->
+<div class="view" id="v-personalno" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Персональная работа</p>
+      <h1>Когда готова идти глубже</h1>
+      <p class="lede">Я не работаю в формате разовых консультаций: настоящие изменения происходят, когда мы идём вместе, шаг за шагом. Форматы ниже — для тех, кто действительно готов к трансформации.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">8–10 недель</span><h3>Персональное сопровождение</h3><p>Под твой запрос: бизнес и реализация, отношения, здоровье и энергия, направление и смыслы. Ищем истинные цели, разбираем, что мешает на глубине, и идём в другое качество жизни. Три места в месяц.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Интересует персональное сопровождение" href="https://t.me/Ol_ster">Обсудить запрос</a></div>
+        <div class="card"><span class="tag">1 час</span><h3>Персональная сессия</h3><p>Одна встреча с практикой под запрос: вытащить настоящее желание, оформить его в цель на полгода, получить практику и личную мантру как опору.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Хочу персональную сессию" href="https://t.me/Ol_ster">Записаться</a></div>
+        <div class="card"><span class="tag">гвозди</span><h3>Индивидуальная гвоздетерапия и обучение мастеров</h3><p>Работа с личным запросом на досках — индивидуально и в парах. Для тех, кто хочет вести практику сам, — обучение методу: без метода стояние может создать новые узлы напряжения.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Интересует гвоздетерапия лично / обучение мастеров" href="https://t.me/Ol_ster">Спросить</a></div>
+        <div class="card"><span class="tag">астрология</span><h3>Соляр и «Денежный магнит»</h3><p>Индивидуальная карта года: где рост, где быть осторожнее, какие темы выйдут на первый план. «Денежный магнит» — сильные точки в теме денег по твоей астрокарте.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Хочу заказать Соляр" href="https://t.me/Ol_ster">Заказать</a></div>
+        <div class="card"><span class="tag">подарок</span><h3>Подарочные сертификаты</h3><p>Три вида: на сумму — на путешествие мечты, персональная трансформирующая медитация, занятие «Йога внимания». Себе или тем, кто дорог.</p><div class="from">по номиналу</div><a class="go" data-tg="Здравствуйте! Хочу подарочный сертификат" href="https://t.me/Ol_ster">Выбрать</a></div>
+        <div class="card"><span class="tag">компаниям</span><h3>Практики для команд и выступления</h3><p>Практики внимания и гвозди для команд — опыт со Сбербанком и Транснефтью; выступления на фестивалях и в вузах. Ещё — сопровождение туристических проектов от концепции до запуска.</p><div class="from">по запросу</div><a class="go" data-tg="Здравствуйте! Пишу от компании, интересует практика для команды" href="https://t.me/Ol_ster">Написать</a></div>
+      </div>
+      <div class="callout">
+        <h3>Бесплатная диагностика — 30 минут</h3>
+        <p>Созвонимся, ты придёшь со своим запросом — состояние, энергия, тревога, отсутствие опоры — а уйдёшь с одной точной практикой, которую можно встроить в жизнь сразу. Так проще понять, нужен ли тебе большой формат.</p>
+        <div class="btns" style="margin-top:18px"><a class="btn gold" data-tg="Здравствуйте! Хочу на 30-минутную диагностику" href="https://t.me/Ol_ster">Хочу диагностику</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ПУТЕШЕСТВИЯ (обзор) ================= -->
+<div class="view" id="v-puteshestviya" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Авторские путешествия</p>
+      <h1>Дорога как практика</h1>
+      <p class="lede">Камерные группы, места, куда хочется возвращаться, и практики в пути. Я беру на себя организацию — за плечами 15 лет турагентства, 45 стран и несколько отелей, запущенных «под ключ».</p>
+      <div class="grid three">
+        <div class="card"><div class="photo p43" style="margin-bottom:8px"><b>Красная гора</b>озеро, сапы, палатки</div><span class="tag">Алтай · каждый июль</span><h3>Озёра Красной горы</h3><p>Шесть дней в высокогорье с палатками, все семь озёр, вершина с видом на Белуху. До 12 человек.</p><div class="from">от 43 000 ₽<span>тариф «Турист»</span></div><a class="go" href="#/krasnaya-gora">Страница поездки</a></div>
+        <div class="card"><div class="photo p43" style="margin-bottom:8px"><b>Шерегеш</b>склон, коттедж, баня</div><span class="tag">декабрь и февраль</span><h3>Шерегеш «Всё включено»</h3><p>Трансфер из Новосибирска и обратно, коттедж комфорт+, завтраки и ужины, баня, инструктаж для новичков, фото на память. Можно ехать, даже если никогда не стояла на лыжах.</p><div class="from">от 45 000 ₽<span>цена для своих · 4–5 дней</span></div><a class="go" data-tg="Здравствуйте! Хочу в Шерегеш с вами" href="https://t.me/Ol_ster">Забронировать место</a></div>
+        <div class="card"><div class="photo p43" style="margin-bottom:8px"><b>Шанхай</b>наряды, фотосессия, город</div><span class="tag">«Девчата на вылете»</span><h3>Шанхай со стилистом</h3><p>Женское путешествие-реалити с Анной Лисицей: Шанхай, Суджоу, Диснейленд, шопинг со стилистом, практики и фотосессия в традиционных нарядах. До 10 человек.</p><div class="from">130 000 ₽<span>12–19 октября 2026</span></div><a class="go" data-tg="ШАНХАЙ" href="https://t.me/Ol_ster">Написать «ШАНХАЙ»</a></div>
+      </div>
+      <div class="afisha" data-afisha data-types="tour" data-limit="6"></div>
+      <div class="callout">
+        <h3>Что дальше</h3>
+        <p>Зима 2027 — Индия, Филиппины, круиз; Улан-Удэ и дацан; женский тур в марте. Анонсы появляются в канале первыми — цены для подписчиков ниже, чем на площадках.</p>
+      </div>
+      <div class="callout">
+        <h3>Любое другое путешествие — Happy Ticket</h3>
+        <p>Моё турагентство: билеты, отели, туры в любую точку мира, два менеджера на связи, 3 700 довольных клиентов за 15 лет. Горящие туры и лайфхаки — в отдельном канале.</p>
+        <div class="btns" style="margin-top:18px"><a class="btn ghost" href="https://t.me/my_happyticket" target="_blank" rel="noopener">Канал Happy Ticket</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= КРАСНАЯ ГОРА (страница направления) ================= -->
+<div class="view" id="v-krasnaya-gora" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Алтай · каждый июль</p>
+      <h1>Озёра Красной горы</h1>
+      <p class="lede">Место, которое для меня на одном уровне с Белухой. Шесть дней в высокогорье: живём в палатках, обходим гору вокруг и видим все семь озёр, а не два, куда возят экскурсии. Иногда нас там всего десять человек — и больше никого.</p>
+      <div class="kv">
+        <div><div class="k">Когда</div><div class="v">начало июля, 6 дней</div></div>
+        <div><div class="k">Старт</div><div class="v">Усть-Кокса, заброска на УАЗе</div></div>
+        <div><div class="k">Группа</div><div class="v">до 12 человек</div></div>
+      </div>
+      <div class="btns"><a class="btn primary" data-tg="Здравствуйте! Хочу на Красную гору в июле" href="https://t.me/Ol_ster">Забронировать место</a></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <div class="shots">
+        <div class="photo p34"><b>Вид с вершины</b>Белуха и Уймонская долина</div>
+        <div class="photo p34"><b>Сапы на озере</b>ледник и цветы в одном кадре</div>
+        <div class="photo p34"><b>Костёр и гитара</b>вечер, звёзды</div>
+        <div class="photo p34"><b>Группа</b>на тропе, венки, улыбки</div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Как проходит</p>
+        <h2 class="h2">День за днём</h2>
+        <div class="days">
+          <div class="dayrow"><div class="n">1</div><p><b>Дорога и первые горы</b>Встреча в Усть-Коксе, заброска в высокогорье, лагерь, вечер у костра.</p></div>
+          <div class="dayrow"><div class="n">2–3</div><p><b>Озёра и вершина</b>Первые озёра, подъём на точку, откуда видно Белуху, Актру и всю долину. Самый сложный маршрут поездки.</p></div>
+          <div class="dayrow"><div class="n">4</div><p><b>День, когда никуда не спешить</b>Утренняя практика, травы для зимнего чая, сапы, гамаки, баня и песни у костра.</p></div>
+          <div class="dayrow"><div class="n">5–6</div><p><b>Остальные озёра и спуск</b>Водопады, Озеро Любви и Озеро Желаний, обход горы, спуск в долину.</p></div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Два формата</p>
+        <h2 class="h2">«Турист» и «Стандарт»</h2>
+        <div class="tariffs">
+          <div class="tarif"><h3>Турист</h3><div class="v">от 43 000 ₽</div><ul><li>Поход целиком: встреча в Усть-Коксе, горы, спуск</li><li>Заброска, лагерь, питание в горах, сопровождение</li><li>Практики — по желанию</li></ul></div>
+          <div class="tarif"><h3>Стандарт</h3><div class="v">от 51 000 ₽</div><ul><li>Всё, что в «Туристе»</li><li>Ночь на базе после спуска: баня, ужин, завтрак, кровать</li><li>Трансфер до Горно-Алтайска на следующий день</li></ul></div>
+        </div>
+        <p class="note">Цена растёт ближе к старту: ранняя бронь открывается зимой. Актуальная ступень — в афише и в анонсе. Из Новосибирска можно организовать выезд накануне.</p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Ближайшие заезды</p>
+      <h2 class="h2">Июль — и только июль</h2>
+      <div class="afisha" data-afisha data-key="altay" data-limit="3"></div>
+      <div class="faq">
+        <details><summary>Я никогда не ходила в походы. Справлюсь?</summary><p>Заброска на УАЗе снимает самый тяжёлый участок, а маршруты по дням идут от простого к сложному. Главное — удобная обувь и готовность жить без связи несколько дней.</p></details>
+        <details><summary>Что с погодой и снаряжением?</summary><p>В июле на Красной горе можно купаться днём и греться у костра вечером. Список снаряжения и палаточный вопрос обсуждаем после брони.</p></details>
+        <details><summary>Есть ли практики?</summary><p>Каждое утро — по желанию: элементы Йоги внимания, медитация на островке, вечером — тишина или гитара. Никто не заставляет.</p></details>
+      </div>
+      <p class="hashline">Дневники прошлых поездок по дням — <a href="https://t.me/s/clubmylife?q=%23%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%D0%B3%D0%BE%D1%80%D0%B02026" target="_blank" rel="noopener">#Краснаягора2026 в канале</a>.</p>
+      <div class="cta-band">
+        <h2>Алтай не зовёт случайных</h2>
+        <p>Напиши, если откликается идея на несколько дней выйти из городского шума. Расскажу подробнее и придержу место.</p>
+        <div class="btns"><a class="btn primary" data-tg="Здравствуйте! Хочу на Красную гору в июле" href="https://t.me/Ol_ster">Написать в Telegram</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= АФИША ================= -->
+<div class="view" id="v-afisha" hidden>
+  <section class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow">Афиша</p>
+      <h1>Ближайшие даты</h1>
+      <p class="lede">Единственная страница сайта, которая меняется. Она собирается из таблицы: Оля правит строку — здесь появляется новая дата, цена или статус, а прошедшее исчезает само.</p>
+      <div class="afisha" data-afisha data-limit="20"></div>
+      <div class="callout">
+        <h3>Регулярное — без дат</h3>
+        <p>Йога внимания — каждое воскресенье в 10:00, йога-нидра — каждый вторник в 20:30, женская встреча — по субботам, эфир — по средам. Это не меняется, поэтому не попадает в афишу.</p>
+        <div class="btns" style="margin-top:18px"><a class="btn ghost" href="#/praktiki">Практики</a><a class="btn ghost" href="https://t.me/clubmylife" target="_blank" rel="noopener">Канал с анонсами</a></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ОБО МНЕ ================= -->
+<div class="view" id="v-o-mne" hidden>
+  <section class="pagehead">
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Обо мне</p>
+        <h1>Ольга Осипова</h1>
+        <p class="lede">Наставник, энерготерапевт, предприниматель. Помогаю расширять внутренние возможности и создавать больше во внешней жизни: в бизнесе, деньгах, отношениях, здоровье и качестве жизни.</p>
+        <p class="mt">Пятнадцать лет назад я открыла турагентство и с тех пор объехала 45 стран, жила за границей и запускала отели «под ключ». Параллельно училась у живых учителей — в Непале у Ринпоче, в ашрамах Индии, у мастеров по всему миру — и собирала практики из первоисточников. Так появилась «Йога внимания»: метод, где внимание становится инструментом счастливой жизни.</p>
+        <p class="mt">Гвозди были моим первым инструментом, и до сих пор доски быстрее слов показывают, где в теле прячется напряжение. Раджа-йога стала системой. А путешествия — способом соединить внешнее с внутренним: маршрут по Алтаю или Шанхаю одновременно оказывается маршрутом к себе.</p>
+      </div>
+      <div class="photo p34"><b>Портрет</b>крупный план, спокойный взгляд</div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Опыт в цифрах и фактах</p>
+      <h2 class="h2">Что за этим стоит</h2>
+      <div class="regalia">
+        <div class="reg"><b>15 лет</b>собственный турбизнес — агентство Happy Ticket, 3 700 клиентов</div>
+        <div class="reg"><b>45 стран</b>и практики, собранные в них — от монастырей Тибета до костров Алтая</div>
+        <div class="reg"><b>500 человек</b>лично провела по дорожке из гвоздей</div>
+        <div class="reg"><b>Сбербанк, Транснефть</b>практики для топ-команд крупных компаний</div>
+        <div class="reg"><b>Непал, Индия</b>обучение у Ринпоче в Намобудде, ашрам Аммы</div>
+        <div class="reg"><b>Сертификаты</b>гвоздетерапевт, преподаватель Раджа-йоги, игропрактик «Очереди из денег»</div>
+      </div>
+      <div class="callout">
+        <h3>В СМИ и на сцене</h3>
+        <p>Репортаж «Новосибирских новостей» о гвоздетерапии — корреспондент сама прошла дорожку из гвоздей на набережной. Выступления на фестивале осознанности «Поле» и в НГТУ, соорганизатор девичника «На волне» от «Опоры России» на сто женщин.</p>
+        <div class="btns" style="margin-top:18px"><a class="btn ghost" href="https://nsknews.info/news/snacala-muraski-potom-rasslablenie-zacem-novosibircy-stoiat-na-gvozdiax" target="_blank" rel="noopener">Читать репортаж</a></div>
+      </div>
+      <div class="callout">
+        <h3>Где я ещё есть</h3>
+        <p>Telegram-канал «Внутренний маршрут» — главный. Ещё VK-канал, MAX, YouTube с эфирами и Instagram* — ссылки в подвале.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Внутренний маршрут</h4>
+        <p>Ольга Осипова · практики внимания, Раджа-йога, гвозди и путешествия. Новосибирск и онлайн.</p>
+        <p class="mt small">Офлайн-практики: пространство «Зодиак», ул. Гоголя 15, 7 этаж.</p>
+      </div>
+      <div>
+        <h4>Связь</h4>
+        <div class="links">
+          <a href="https://t.me/Ol_ster" data-tg="Здравствуйте! Пишу с сайта" target="_blank" rel="noopener">Telegram: @Ol_ster</a>
+          <a href="https://t.me/clubmylife" target="_blank" rel="noopener">Канал «Внутренний маршрут»</a>
+          <a href="https://t.me/my_happyticket" target="_blank" rel="noopener">Турагентство Happy Ticket</a>
+        </div>
+      </div>
+      <div>
+        <h4>Соцсети</h4>
+        <div class="links">
+          <a href="https://youtube.com/@ol_ster" target="_blank" rel="noopener">YouTube — эфиры</a>
+          <a href="https://vk.ru/im/channels/-238577056" target="_blank" rel="noopener">VK-канал</a>
+          <a href="https://max.ru/join/_s5r81tlh3O9snz3iZIhrpVqwA-8FXcmP4Z8QhaUYf0" target="_blank" rel="noopener">MAX</a>
+          <a href="https://www.instagram.com/ol_ster" target="_blank" rel="noopener">Instagram*</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      <p>ИП Осипова О. — реквизиты, публичная оферта и политика конфиденциальности: место под документы от Оли. *Instagram принадлежит Meta, признанной экстремистской организацией и запрещённой в РФ.</p>
+    </div>
+  </div>
+</footer>
+
+<a class="float" data-tg="Здравствуйте! Пишу с сайта, хочу записаться" href="https://t.me/Ol_ster" id="floatBtn" hidden>Написать в Telegram</a>
+
+<script>
+/* ---------- Афиша: данные. В рабочем сайте — из Google Таблицы (CSV). Здесь — пример строк. ---------- */
+const SHEET_CSV_URL = ""; // адрес опубликованной таблицы-афиши; пусто = показываем пример ниже
+const AFISHA_DEMO = [
+  {key:"yoga", type:"practice", title:"Йога внимания", sub:"воскресная практика", start:"2026-09-20", time:"10:00–12:00", where:"«Зодиак», Гоголя 15", fmt:"офлайн", price:"1 500 ₽ пробное · 2 500 ₽ разовое · 8 200 ₽ абонемент", status:"open", link:"https://t.me/clubmylife/3768", tg:"Здравствуйте! Хочу на Йогу внимания 20 сентября"},
+  {key:"nidra", type:"practice", title:"Йога-нидра", sub:"вечерняя практика расслабления", start:"2026-09-22", time:"20:30–21:30", where:"«Зодиак», Гоголя 15", fmt:"офлайн", price:"700 ₽ пробное · 1 000 ₽ разовое · 3 500 ₽ абонемент", status:"open", link:"https://t.me/clubmylife/3772", tg:"Здравствуйте! Хочу на йога-нидру 22 сентября"},
+  {key:"radzha", type:"course", title:"Раджа-йога, 1 ступень", sub:"новый поток · 7 онлайн-занятий", start:"2026-10-01", time:"дата старта уточняется", where:"онлайн", fmt:"онлайн", price:"25 000 ₽", status:"open", link:"https://t.me/clubmylife/3675", tg:"Здравствуйте! Хочу на осенний поток Раджа-йоги, 1 ступень"},
+  {key:"shanghai", type:"tour", title:"Шанхай · «Девчата на вылете»", sub:"женское путешествие со стилистом", start:"2026-10-12", end:"2026-10-19", where:"Китай", fmt:"группа до 10 человек", price:"130 000 ₽ — проживание комфорт+, завтраки, входы, SPA, фотосессия, трансферы", status:"few", link:"https://t.me/clubmylife/3733", tg:"ШАНХАЙ"},
+  {key:"game", type:"game", title:"Игра «Очередь из денег»", sub:"трансформационная игра", start:null, time:"дата выбирается с группой", where:"онлайн и офлайн", fmt:"1,5–2 часа", price:"3 500 ₽ · 6 000 ₽ за двоих", status:"soon", link:"https://t.me/clubmylife/3547", tg:"Здравствуйте! Хочу в предзапись на игру «Очередь из денег»"},
+  {key:"sheregesh", type:"tour", title:"Шерегеш «Всё включено»", sub:"первая поездка сезона", start:"2026-12-11", end:"2026-12-15", where:"из Новосибирска", fmt:"коттедж, баня, инструктаж", price:"от 45 000 ₽ — цена для подписчиков, зафиксируй до подорожания", status:"open", link:"https://t.me/clubmylife/3705", tg:"Здравствуйте! Хочу в Шерегеш 11–15 декабря"},
+  {key:"sheregesh", type:"tour", title:"Шерегеш «Всё включено»", sub:"заезд перед Новым годом", start:"2026-12-18", end:"2026-12-22", where:"из Новосибирска", fmt:"коттедж, баня, инструктаж", price:"от 45 000 ₽", status:"soon", link:"https://t.me/clubmylife/3705", tg:"Здравствуйте! Хочу в Шерегеш 18–22 декабря"},
+  {key:"chakry", type:"course", title:"Чакральное здоровье", sub:"7 дней — 7 чакр перед Новым годом", start:"2026-12-21", end:"2026-12-27", where:"онлайн", fmt:"эфиры с записью на сутки", price:"5 555 ₽ — продаётся только в декабре", status:"soon", link:"https://t.me/clubmylife/2088", tg:"Здравствуйте! Хочу на «Чакральное здоровье» в декабре"},
+  {key:"sheregesh", type:"tour", title:"Шерегеш «Всё включено»", sub:"День любви в горах", start:"2027-02-12", end:"2027-02-16", where:"из Новосибирска", fmt:"коттедж, баня, инструктаж", price:"цена откроется осенью", status:"soon", link:"https://t.me/clubmylife/3705", tg:"Здравствуйте! Хочу в Шерегеш в феврале"},
+  {key:"altay", type:"tour", title:"Алтай · Озёра Красной горы", sub:"поход с палатками, все семь озёр", start:"2027-07-05", end:"2027-07-10", where:"Усть-Кокса", fmt:"до 12 человек", price:"ранняя бронь откроется в декабре — от 43 000 ₽", status:"soon", link:"https://t.me/clubmylife/2830", tg:"Здравствуйте! Хочу на Красную гору в июле 2027"}
+];
+const STATUS = {open:["Запись открыта","open"], few:["Мало мест","few"], last:["Последнее место","few"], soon:["Скоро · предзапись","soon"], live:["Идёт сейчас","live"], done:["Завершено","soon"]};
+const MONTHS = ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
+const MONTHS_G = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+const WD = ["вс","пн","вт","ср","чт","пт","сб"];
+const TYPE_LABEL = {practice:"практика", course:"онлайн-курс", game:"игра", tour:"путешествие", meeting:"встреча", training:"тренинг"};
+
+function tgHref(text){ return "https://t.me/Ol_ster?text=" + encodeURIComponent(text); }
+function d(s){ if(!s) return null; const [y,m,dd]=s.split("-").map(Number); return new Date(y,m-1,dd); }
+function fmtRange(ev){
+  const a=d(ev.start), b=d(ev.end);
+  if(!a) return "";
+  if(!b) return WD[a.getDay()]+", "+a.getDate()+" "+MONTHS_G[a.getMonth()];
+  if(a.getMonth()===b.getMonth()) return a.getDate()+"–"+b.getDate()+" "+MONTHS_G[b.getMonth()]+" "+b.getFullYear();
+  return a.getDate()+" "+MONTHS_G[a.getMonth()]+" – "+b.getDate()+" "+MONTHS_G[b.getMonth()];
+}
+function parseCsv(text){
+  const rows=[]; let row=[], cell="", q=false;
+  for(let i=0;i<text.length;i++){ const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){cell+='"';i++;} else q=false; } else cell+=c; }
+    else if(c==='"') q=true; else if(c===','){row.push(cell);cell="";} else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell="";} else if(c!=='\r') cell+=c; }
+  if(cell||row.length){row.push(cell);rows.push(row);}
+  const h=rows.shift().map(s=>s.trim());
+  return rows.filter(r=>r.length>1).map(r=>Object.fromEntries(h.map((k,i)=>[k,(r[i]||"").trim()])));
+}
+async function loadAfisha(){
+  if(!SHEET_CSV_URL) return AFISHA_DEMO;
+  try{ const r=await fetch(SHEET_CSV_URL,{cache:"no-store"}); if(!r.ok) throw 0; const rows=parseCsv(await r.text());
+    return rows.filter(x=>(x.show||"да").toLowerCase()!=="нет").map(x=>({key:x.key,type:x.type,title:x.title,sub:x.sub,start:x.start||null,end:x.end||null,time:x.time,where:x.where,fmt:x.fmt,price:x.price,status:x.status||"open",link:x.link,tg:x.tg}));
+  }catch(e){ return AFISHA_DEMO; }
+}
+function renderAfisha(all){
+  const today=new Date(); today.setHours(0,0,0,0);
+  document.querySelectorAll("[data-afisha]").forEach(box=>{
+    const types=(box.dataset.types||"").split(",").filter(Boolean);
+    const key=box.dataset.key; const limit=+box.dataset.limit||6;
+    let items=all.filter(ev=>{
+      const end=d(ev.end)||d(ev.start);
+      if(end && end<today && ev.status!=="live") return false;
+      if(types.length && !types.includes(ev.type)) return false;
+      if(key && ev.key!==key) return false;
+      return true;
+    });
+    items.sort((a,b)=>{ const x=d(a.start), y=d(b.start); if(!x&&!y) return 0; if(!x) return 1; if(!y) return -1; return x-y; });
+    items=items.slice(0,limit);
+    if(!items.length){ box.innerHTML='<div class="empty">Ближайших дат пока нет — они появятся здесь, как только Оля объявит поток. Пока можно написать и встать в предзапись.</div>'; return; }
+    box.innerHTML=items.map(ev=>{
+      const a=d(ev.start); const st=STATUS[ev.status]||STATUS.open;
+      const date=a?`<div class="date"><div class="dd">${a.getDate()}</div><div class="mm">${MONTHS[a.getMonth()]}${a.getFullYear()!==today.getFullYear()?" "+String(a.getFullYear()).slice(2):""}</div><div class="wd">${ev.end?"":WD[a.getDay()]}</div></div>`
+                   :`<div class="date"><div class="dd">?</div><div class="mm">дата</div><div class="wd">уточн.</div></div>`;
+      const when=[fmtRange(ev), ev.time].filter(Boolean).join(" · ");
+      const meta=[when, ev.where, ev.fmt].filter(Boolean).join(" · ");
+      return `<article class="ev">${date}<div class="body"><span class="type">${TYPE_LABEL[ev.type]||ev.type}</span><h3>${ev.title}${ev.sub?` <span class="muted" style="font-weight:400">— ${ev.sub}</span>`:""}</h3><div class="meta">${meta}</div><div class="price">${ev.price||""}</div><div class="row"><span class="pill ${st[1]}">${st[0]}</span><a class="btn primary sm" href="${tgHref(ev.tg||"Здравствуйте! Хочу записаться: "+ev.title)}" target="_blank" rel="noopener">Записаться</a>${ev.link?`<a class="link small" href="${ev.link}" target="_blank" rel="noopener">анонс в канале</a>`:""}</div></div></article>`;
+    }).join("");
+  });
+}
+
+/* ---------- Кнопки в Telegram с готовым текстом ---------- */
+document.querySelectorAll("[data-tg]").forEach(a=>{ a.href=tgHref(a.dataset.tg); a.target="_blank"; a.rel="noopener"; });
+
+/* ---------- Переключение страниц макета ---------- */
+const VIEWS=["home","praktiki","yoga-vnimaniya","kursy","radzha-yoga","personalno","puteshestviya","krasnaya-gora","afisha","o-mne"];
+const PARENT={"yoga-vnimaniya":"praktiki","radzha-yoga":"kursy","krasnaya-gora":"puteshestviya"};
+function route(){
+  let name=(location.hash||"#/").replace(/^#\/?/,"").split("?")[0]||"home";
+  if(!VIEWS.includes(name)) name="home";
+  VIEWS.forEach(v=>{ const el=document.getElementById("v-"+v); if(el) el.hidden=(v!==name); });
+  const active=PARENT[name]||name;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.dataset.view===active));
+  const tab=document.querySelector(".tab.on"); if(tab&&tab.scrollIntoView) tab.scrollIntoView({block:"nearest",inline:"center"});
+  window.scrollTo({top:0,behavior:"auto"});
+  currentView=name; updateFloat();
+}
+let currentView="home";
+function updateFloat(){ document.getElementById("floatBtn").hidden=(currentView==="home" && window.scrollY<560); }
+window.addEventListener("hashchange",route);
+window.addEventListener("scroll",updateFloat,{passive:true});
+route();
+loadAfisha().then(renderAfisha);
+</script>
+
+</body>
+</html>

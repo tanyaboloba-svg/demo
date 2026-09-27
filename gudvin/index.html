@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="ru" data-style="premium">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Гудвин — частный детский сад в Москве</title>
+<meta name="description" content="Частный детский сад в Москве: режим дня, группы и цены, запись на экскурсию.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Гудвин — частный детский сад в Москве">
+<meta property="og:description" content="Частный детский сад в Москве: режим дня, группы и цены, запись на экскурсию.">
+<meta property="og:image" content="https://demo.tanyaboost.ru/gudvin/og.png"><meta property="og:url" content="https://demo.tanyaboost.ru/gudvin/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face{font-family:'Prata';src:url(../assets/fonts/Prata.woff) format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Marck Script';src:url(../assets/fonts/MarckScript.woff) format('woff');font-weight:400;font-display:swap;}
+@font-face{font-family:'Manrope';src:url(../assets/fonts/Manrope.woff) format('woff');font-weight:200 800;font-display:swap;}
+/* Вау-демо детского сада, версия 3.7 (25.09.2026).
+   Стиль — атрибут data-style на <html>: applique | eco | premium | pastel.
+   В каждом стиле свои цвета И своя пара шрифтов (все шрифты под лицензией SIL OFL, лежат в assets/fonts). */
+
+:root, [data-style="applique"] {
+  --bg:#F6F8FD; --paper:#FFFFFF; --wall:#FFF6E6; --ink:#1B1E3C; --muted:#545A7E; --line:#DDE3F1;
+  --c1:#F0532F; --c1d:#C23C1E; --c2:#FFBE2E; --c3:#2F6BEA; --c4:#2FAE6E; --c5:#F59BBE;
+  --g:#23875A; --wood:#B7794A; --sky:#DCE7FF; --board:#2F5E4A; --on1:#FFFFFF;
+  --tint1:#FDE4DD; --tint2:#FFF1CC; --tint3:#DFE8FD; --tint4:#D9F2E5; --tintA:#EAF0FF; --tintB:#FFF4D6;
+  --hand:#2F6BEA;
+  --fd:"Unbounded", "Arial Black", sans-serif; --fdw:800; --fdls:-.02em;
+  --fb:"Onest", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fh:"Caveat", "Segoe Print", cursive; --fhs:1.5em;
+  --rot:1; color-scheme: light;
+}
+[data-style="eco"] {
+  --bg:#F3F1E8; --paper:#FFFDF8; --wall:#FBF3E4; --ink:#22301F; --muted:#5B6857; --line:#E2DFD0;
+  --c1:#C8662F; --c1d:#9E4C1F; --c2:#E7B544; --c3:#5F8F76; --c4:#6E9A4E; --c5:#DDA88C;
+  --g:#3D6E45; --wood:#9A6A43; --sky:#E4ECD9; --board:#33523B; --on1:#FFFFFF;
+  --tint1:#F5E2D3; --tint2:#F8EDCD; --tint3:#E0EBE3; --tint4:#E3EDD6; --tintA:#E9EEDD; --tintB:#F6EBD9;
+  --hand:#C8662F;
+  --fd:"Kurale", Georgia, serif; --fdw:400; --fdls:0;
+  --fb:"Golos Text", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fh:"Caveat", "Segoe Print", cursive; --fhs:1.5em; --rot:.6;
+}
+[data-style="premium"] {
+  --bg:#F7F6F3; --paper:#FFFFFF; --wall:#FBF7F2; --ink:#161A33; --muted:#5A5E78; --line:#E6E3DC;
+  --c1:#1F2560; --c1d:#12163F; --c2:#D6A85C; --c3:#8391C9; --c4:#95BBA9; --c5:#E6B0A2;
+  --g:#5E8D7B; --wood:#A77F5C; --sky:#ECEBF4; --board:#2A3A4E; --on1:#FFFFFF;
+  --tint1:#E7E8F3; --tint2:#F6EEDF; --tint3:#EBEDF7; --tint4:#E6F0EB; --tintA:#EFEEF6; --tintB:#F5EEE3;
+  --hand:#A3783A;
+  --fd:"Prata", Georgia, serif; --fdw:400; --fdls:0;
+  --fb:"Manrope", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fh:"Marck Script", "Segoe Script", cursive; --fhs:1.25em; --rot:0;
+}
+[data-style="pastel"] {
+  --bg:#FBF6FB; --paper:#FFFFFF; --wall:#FFF4EC; --ink:#2B2142; --muted:#665B80; --line:#EEE3F0;
+  --c1:#8651D6; --c1d:#6437B0; --c2:#FFCB5C; --c3:#4FBFAA; --c4:#7EC87E; --c5:#FF9679;
+  --g:#5AA37C; --wood:#C28C66; --sky:#EFE4FB; --board:#3E4E6B; --on1:#FFFFFF;
+  --tint1:#EFE5FB; --tint2:#FFF1D5; --tint3:#DDF4EF; --tint4:#FFE6DE; --tintA:#F3EAFB; --tintB:#E6F6F2;
+  --hand:#8651D6;
+  --fd:"Montserrat Alternates", "Arial Black", sans-serif; --fdw:800; --fdls:-.01em;
+  --fb:"Onest", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fh:"Caveat", "Segoe Print", cursive; --fhs:1.5em; --rot:1.2;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 18px/1.6 var(--fb); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--c3); outline-offset: 3px; border-radius: 6px; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-family: var(--fd); font-weight: var(--fdw); letter-spacing: var(--fdls); text-wrap: balance; }
+h2 { font-size: clamp(2.1rem, 3.6vw + 1rem, 4.2rem); line-height: 1; }
+h3 { font-size: 1.22rem; line-height: 1.2; }
+[data-style="applique"] h3, [data-style="pastel"] h3 { font-weight: 700; font-size: 1.1rem; }
+
+.wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); position: relative; }
+.sec { position: relative; background: var(--sec); padding-block: clamp(64px, 8vw, 116px); }
+/* край «фигурными ножницами» сверху секции, цветом самой секции */
+.zz::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px;
+  background: linear-gradient(-45deg, var(--sec) 8.5px, transparent 0) 0 100% / 17px 12px repeat-x,
+              linear-gradient(45deg, var(--sec) 8.5px, transparent 0) 0 100% / 17px 12px repeat-x; }
+.head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 28px; margin-bottom: clamp(28px, 4vw, 52px); }
+
+/* рукописные пометки — пометки Тани для директора, на рабочем сайте их нет */
+.hand { font-family: var(--fh); font-weight: 600; color: var(--hand); line-height: 1.1; }
+.note { font-size: var(--fhs); max-width: 22ch; transform: rotate(calc(-2.5deg * var(--rot) - .5deg)); padding-bottom: .2em; }
+.note.light { color: var(--c2); max-width: 26ch; margin-top: 22px; }
+
+/* ---------- лента и шапка ---------- */
+.ribbon { background: var(--ink); color: #fff; font-size: 14.5px; line-height: 1.4; }
+.ribbon .wrap { padding-block: 9px; text-align: center; }
+.ribbon b { color: var(--c2); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); transition: box-shadow .2s; }
+.top.scrolled { box-shadow: 0 1px 0 var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 24px; padding-block: 12px; }
+.logo { font-family: var(--fd); font-weight: var(--fdw); font-size: 1.35rem; text-decoration: none; margin-right: auto; letter-spacing: var(--fdls); }
+.nav { display: flex; gap: 22px; font-size: 16px; }
+.nav a { text-decoration: none; color: var(--muted); } .nav a:hover { color: var(--ink); }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border-radius: 999px; border: 0; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: 17px; line-height: 1.1; text-decoration: none; transition: transform .15s cubic-bezier(.3,1.6,.5,1), box-shadow .15s, background .15s, color .15s; }
+.btn-main { background: var(--c1); color: var(--on1); box-shadow: 0 6px 0 var(--c1d); }
+.btn-main:hover { transform: translateY(-2px) rotate(-1deg); box-shadow: 0 8px 0 var(--c1d); }
+.btn-main:active { transform: translateY(5px) scale(.98); box-shadow: 0 1px 0 var(--c1d); }
+.btn-ghost { background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.top .btn { min-height: 42px; padding: 0 18px; font-size: 16px; }
+
+/* ---------- первый экран ---------- */
+.hero { padding-block: clamp(20px, 4vw, 48px) clamp(56px, 7vw, 100px); overflow: hidden;
+  background: var(--bg); }
+/* фон: цветные размытые шарики, медленно плавают (v3.2 — вместо конфетти и наклеек-фигур) */
+.blobs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 90px, #000 calc(100% - 90px), transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 90px, #000 calc(100% - 90px), transparent); }
+.blobs i { position: absolute; width: var(--s); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bc) var(--ba), transparent) 0%,
+              color-mix(in srgb, var(--bc) calc(var(--ba) * .72), transparent) 28%,
+              color-mix(in srgb, var(--bc) calc(var(--ba) * .38), transparent) 55%,
+              color-mix(in srgb, var(--bc) calc(var(--ba) * .12), transparent) 78%, transparent 100%);
+  animation: drift var(--t) ease-in-out infinite alternate; will-change: transform; }
+.b1 { --bc: var(--c5); --ba: 62%; --s: clamp(260px, 34vw, 520px); left: -8%; top: -6%; --t: 23s; --dx: 40px; --dy: 30px; }
+.b2 { --bc: var(--c2); --ba: 66%; --s: clamp(280px, 38vw, 560px); right: -10%; top: -12%; --t: 27s; --dx: -36px; --dy: 44px; }
+.b3 { --bc: var(--c3); --ba: 48%; --s: clamp(240px, 32vw, 480px); right: 6%; bottom: -2%; --t: 25s; --dx: -30px; --dy: -36px; }
+.b4 { --bc: var(--c4); --ba: 52%; --s: clamp(200px, 26vw, 400px); left: 18%; bottom: 0%; --t: 21s; --dx: 34px; --dy: -24px; }
+.b5 { --bc: var(--c1); --ba: 34%; --s: clamp(160px, 20vw, 300px); left: 44%; top: 20%; --t: 29s; --dx: -26px; --dy: 30px; }
+.b6 { --bc: var(--c3); --ba: 26%; --s: clamp(240px, 30vw, 460px); right: -8%; top: -10%; --t: 26s; --dx: -30px; --dy: 30px; }
+.b7 { --bc: var(--c5); --ba: 40%; --s: clamp(240px, 30vw, 460px); left: -10%; bottom: -16%; --t: 24s; --dx: 34px; --dy: -26px; }
+@keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(var(--dx), var(--dy)) scale(1.08); } }
+[data-style="eco"] .blobs { opacity: .75; }
+[data-style="premium"] .blobs { opacity: .55; }
+.mag { font-size: var(--fs); line-height: .95; margin: 0 0 clamp(18px, 3vw, 34px) -.04em; display: flex; flex-wrap: wrap; gap: 0 .28em; letter-spacing: 0; }
+.mag .w { display: inline-flex; white-space: nowrap; }
+.mag .l { display: inline-block; color: var(--lc); transform: translateY(var(--y)) rotate(calc(var(--r) * var(--rot))); margin-right: .015em;
+  text-shadow: 0 .045em 0 color-mix(in srgb, var(--lc) 62%, #000), 0 .09em .08em rgba(20,20,40,.18); cursor: default;
+  transition: transform .35s cubic-bezier(.3,1.8,.5,1); }
+.mag .l:hover { transform: translateY(-.12em) rotate(calc(var(--r) * -2)); }
+.js .mag .l { animation: drop .9s cubic-bezier(.25,1.5,.45,1) both; animation-delay: calc(var(--i) * 55ms + 120ms); }
+@keyframes drop { 0% { transform: translateY(-1.1em) rotate(calc(var(--r) * 4)); opacity: 0; } 55% { opacity: 1; } 100% { transform: translateY(var(--y)) rotate(calc(var(--r) * var(--rot))); opacity: 1; } }
+[data-style="premium"] .mag .l { color: var(--ink); text-shadow: none; }
+[data-style="premium"] .mag .w:first-child .l:first-child { color: var(--c2); }
+
+.hero-row { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.hero-text { display: grid; gap: 20px; align-content: start; padding-top: 6px; }
+.kind { font-size: clamp(1.15rem, .6vw + 1rem, 1.45rem); font-weight: 600; }
+/* факты под названием — цветные плашки 2×2 (v3.7) */
+.facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 560px; }
+.facts li { display: flex; gap: 11px; align-items: center; font-size: 1.02em; font-weight: 700; line-height: 1.25; text-wrap: balance;
+  padding: 13px 15px; border-radius: 18px; background: color-mix(in srgb, var(--c) 15%, var(--paper));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--c) 35%, transparent); }
+.facts li::before { content: ""; flex: none; width: 14px; height: 14px; border-radius: 4px; background: var(--c); transform: rotate(14deg); }
+[data-style="premium"] .facts li { font-weight: 600; border-radius: 12px; background: color-mix(in srgb, var(--c) 11%, var(--paper)); }
+[data-style="premium"] .facts li::before { transform: none; border-radius: 50%; width: 10px; height: 10px; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { display: inline-flex; gap: 6px; align-items: center; padding: 7px 14px; border-radius: 999px; background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line); font-size: 15.5px; }
+.badge .stars { color: var(--c2); letter-spacing: 1px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.now { display: inline-flex; align-items: center; gap: 12px; justify-self: start; padding: 11px 16px 11px 13px; background: var(--paper); border-radius: 16px;
+  box-shadow: 0 1px 0 var(--line), 0 14px 30px -20px rgba(27,30,60,.5); max-width: 100%; }
+.now .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--c4); flex: none; animation: pulse 2.4s infinite; }
+.now p { font-size: 16.5px; line-height: 1.4; }
+.now b { font-variant-numeric: tabular-nums; }
+.hero-pic { position: relative; }
+.n-hero { position: absolute; left: -8px; top: -46px; display: flex; align-items: flex-start; gap: 2px; max-width: none; z-index: 3; }
+.n-hero .arrow { width: 70px; height: 48px; margin-top: 14px; }
+.arrow path { fill: none; stroke: var(--hand); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.js .arrow.draw path { stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw 1.1s 1.2s ease-out forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.hero-photo { position: relative; margin: 0; padding: 12px 12px 16px; background: var(--paper); border-radius: 26px; transform: rotate(calc(2deg * var(--rot)));
+  box-shadow: 0 2px 0 var(--line), 0 34px 60px -32px rgba(27,30,60,.55); }
+.hero-photo img { width: 100%; aspect-ratio: 5 / 4.4; object-fit: cover; border-radius: 16px; }
+.hero-photo .sun-st { position: absolute; top: -40px; right: -26px; width: 116px; height: 116px; }
+.hero-photo figcaption { position: absolute; right: 26px; bottom: 30px; font-size: 14px; font-weight: 600; color: #fff; background: rgba(20,22,40,.45); padding: 4px 10px; border-radius: 999px; }
+.tape { position: absolute; width: 96px; height: 28px; background: color-mix(in srgb, var(--c2) 55%, transparent); top: -12px; left: 34%; transform: rotate(-5deg); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+[data-style="premium"] .tape { display: none; }
+
+.sec > .wrap { z-index: 1; }
+
+/* ---------- иллюстрации ---------- */
+.art .p0 { fill: var(--paper); } .art .p1 { fill: var(--c1); } .art .p1d { fill: var(--c1d); } .art .p2 { fill: var(--c2); }
+.art .p3 { fill: var(--c3); } .art .p4 { fill: var(--c4); } .art .p5 { fill: var(--c5); } .art .p5d { fill: var(--wood); }
+.art .pg { fill: var(--g); } .art .ps { fill: var(--sky); } .art .pw { fill: var(--wall); } .art .pi { fill: var(--ink); } .art .pboard { fill: var(--board); }
+.art .line { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; fill: none; } .art .p5d.line { stroke: var(--wood); }
+.art .thin { stroke: var(--ink); stroke-width: 2.5; fill: none; } .art .p0l { stroke: var(--paper); stroke-width: 6; stroke-linecap: round; fill: none; }
+.art .sign-t { font-family: var(--fd); font-weight: var(--fdw); fill: var(--ink); }
+.art .blk { font: 800 22px var(--fd); fill: #fff; } .art .chalk { font: 700 30px var(--fh); fill: #fff; opacity: .92; letter-spacing: 4px; } .art .chalk.sm { font-size: 24px; opacity: .8; }
+.ava-art .ps { fill: var(--sky); } .ava-art .pw { fill: var(--wall); } .ava-art .p1 { fill: var(--c1); } .ava-art .p3 { fill: var(--c3); }
+.ava-art .p4 { fill: var(--c4); } .ava-art .p5d { fill: var(--wood); } .ava-art .p1d { fill: var(--c1d); } .ava-art .pg { fill: var(--g); }
+.rays { transform-box: fill-box; transform-origin: center; animation: spin 40s linear infinite; }
+.cloud-a { animation: drift 14s ease-in-out infinite alternate; } .cloud-b { animation: drift 18s ease-in-out infinite alternate-reverse; }
+.kite { transform-box: fill-box; transform-origin: 50% 0; animation: sway 6s ease-in-out infinite alternate; }
+.steam path { animation: rise 3s ease-in-out infinite; } .steam path:nth-child(2) { animation-delay: .6s; } .steam path:nth-child(3) { animation-delay: 1.2s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes drift { from { transform: translateX(-10px); } to { transform: translateX(16px); } }
+@keyframes sway { from { transform: rotate(-4deg); } to { transform: rotate(5deg); } }
+@keyframes rise { 0%,100% { transform: translateY(0); opacity: .9; } 50% { transform: translateY(-6px); opacity: .5; } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c4) 60%, transparent); } 70%,100% { box-shadow: 0 0 0 10px transparent; } }
+
+/* ---------- режим дня ---------- */
+.tl-wrap { position: relative; padding-top: 38px; }
+.tl { display: flex; gap: 6px; }
+.tl button { flex: var(--w) 1 0; min-width: 0; text-align: left; border: 0; cursor: pointer; font: inherit; color: var(--ink); background: var(--tint);
+  border-radius: 16px; padding: 14px 14px 16px; display: grid; gap: 4px; align-content: start; transition: transform .25s cubic-bezier(.3,1.7,.5,1), background .2s; }
+.tl .t { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tl .n { font-weight: 700; font-size: 16.5px; line-height: 1.2; }
+.tl button:hover { transform: translateY(-3px); }
+.tl button[aria-pressed="true"] { background: var(--col); color: #fff; transform: translateY(-6px) rotate(-1deg); box-shadow: 0 6px 0 color-mix(in srgb, var(--col) 65%, #000); }
+.tl button[aria-pressed="true"] .t { color: rgba(255,255,255,.85); }
+.sunmark { position: absolute; top: 0; left: var(--pos, -100px); width: 28px; height: 28px; margin-left: -14px; transition: left .6s; }
+.sunmark[hidden] { display: none; }
+.sunmark i { position: absolute; inset: 0; border-radius: 50%; background: var(--c2); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c2) 35%, transparent); animation: bob 2.2s ease-in-out infinite; }
+.sunmark::after { content: "сейчас"; position: absolute; left: 36px; top: -4px; font: 700 1.4rem/1 var(--fh); color: var(--hand); white-space: nowrap; }
+@keyframes bob { 50% { transform: translateY(-4px); } }
+.tl-card { margin-top: 26px; display: grid; grid-template-columns: auto 1fr; gap: 8px 32px; align-items: center; padding: clamp(22px, 3vw, 34px); border-radius: 24px; background: var(--bg); }
+.tl-card .big { font: var(--fdw) clamp(2.6rem, 4vw + 1rem, 4.4rem)/1 var(--fd); color: var(--c1); font-variant-numeric: tabular-nums; }
+.tl-card h3 { font-size: 1.45rem; margin-bottom: 4px; }
+.tl-card p { color: var(--muted); max-width: 52ch; }
+.tl-card.swap { animation: pop .35s cubic-bezier(.3,1.6,.5,1); }
+@keyframes pop { from { transform: translateY(8px) scale(.98); opacity: .4; } }
+
+/* ---------- фото ---------- */
+.shots { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(clamp(170px, 17vw, 232px), auto); gap: 26px 20px; }
+.shot { position: relative; margin: 0; padding: 9px 9px 10px; display: flex; flex-direction: column; gap: 7px; background: var(--paper); border-radius: 10px; box-shadow: 0 16px 30px -22px rgba(27,30,60,.6);
+  transform: rotate(calc(var(--tilt) * var(--rot))); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+.shot:hover { transform: rotate(0deg) scale(1.02); z-index: 2; }
+.shot:first-child { grid-column: span 2; grid-row: span 2; }
+.shot:last-child { grid-column: span 2; }
+/* подпись под фото целиком, в несколько строк (v3.4: раньше обрезалась многоточием) */
+.shot > img, .shot > .art, .shot .v-photo, .shot .v-art { flex: 1 1 0; min-height: 110px; height: auto; width: 100%; border-radius: 5px; overflow: hidden; }
+.shot > img, .shot > .art, .shot .v-photo > img, .shot .v-art > svg { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; display: block; }
+.shot .v-photo > img, .shot .v-art > svg { position: absolute; inset: 0; }
+.shot .v-photo, .shot .v-art { position: relative; }
+.shot figcaption { flex: none; padding: 0 5px; font: 700 1.65rem/1.1 var(--fh); color: var(--ink); overflow-wrap: anywhere; }
+.shot figcaption span { font-weight: 600; color: color-mix(in srgb, var(--ink) 72%, transparent); }
+.shot .tape { top: -13px; left: calc(50% - 48px); transform: rotate(var(--tr, -4deg)); }
+
+/* ---------- люди ---------- */
+.team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.person { display: grid; gap: 12px; align-content: start; padding: 26px; border-radius: 24px; background: var(--bg); }
+.person .ava-art { width: 96px; height: 96px; }
+.person p { color: var(--muted); font-size: 17px; }
+.chip { justify-self: start; font: 700 1.25rem/1 var(--fh); color: var(--hand); }
+
+/* ---------- коротко о главном ---------- */
+.faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.qa { position: relative; overflow: hidden; background: var(--paper); border-radius: 22px; padding: 28px 30px 30px; display: grid; gap: 10px; align-content: start;
+  box-shadow: 0 1px 0 var(--line); transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+.qa:hover { transform: translateY(-4px) rotate(calc(-.6deg * var(--rot))); }
+.qa .cut { position: absolute; top: -26px; right: -26px; width: 92px; height: 92px; background: var(--col); transition: transform .5s; }
+.qa:hover .cut { transform: rotate(40deg) scale(1.1); }
+.qa .cut.c0 { border-radius: 50%; } .qa .cut.c1 { border-radius: 16px; } .qa .cut.c3 { border-radius: 50% 50% 50% 0; }
+.qa .cut.c2 { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.qa h3 { padding-right: 58px; }
+.qa p { color: var(--muted); }
+
+/* ---------- группы и цены ---------- */
+.picker { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 26px; }
+.picker > span { font-weight: 700; margin-right: 4px; }
+.picker button { border: 0; font: inherit; font-size: 16px; font-weight: 600; padding: 10px 16px; border-radius: 999px; cursor: pointer; background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 2px var(--line); }
+.picker button[aria-pressed="true"] { background: var(--ink); color: var(--paper); box-shadow: none; }
+.groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.grp { background: var(--paper); border-radius: 26px; padding: 28px; display: grid; gap: 14px; align-content: start; position: relative; transition: transform .3s cubic-bezier(.3,1.6,.5,1), opacity .2s, box-shadow .2s; }
+.grp .age { justify-self: start; font-size: 14.5px; font-weight: 700; padding: 6px 12px; border-radius: 999px; background: var(--tint); }
+.grp .price { font: var(--fdw) clamp(2rem, 1.2vw + 1.6rem, 2.6rem)/1 var(--fd); white-space: nowrap; }
+.grp .price span { font: 400 15px/1 var(--fb); color: var(--muted); }
+.grp ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.grp li { display: flex; gap: 10px; font-size: 16.5px; line-height: 1.4; }
+.grp li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 6px; border-radius: 3px; background: var(--col); transform: rotate(12deg); }
+.grp .fit { position: absolute; top: -16px; right: 18px; font: 700 1.5rem/1 var(--fh); color: var(--on1); background: var(--c1); padding: 6px 14px 8px; border-radius: 12px; transform: rotate(4deg); }
+.groups.picked .grp { opacity: .5; }
+.groups.picked .grp.on { opacity: 1; box-shadow: inset 0 0 0 3px var(--c1); transform: translateY(-6px) rotate(calc(-1deg * var(--rot))); }
+.fineprint { margin-top: 18px; font-size: 15px; color: var(--muted); }
+
+/* ---------- отзывы ---------- */
+.rev { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(24px, 4vw, 64px); align-items: center; }
+.score { display: grid; gap: 6px; }
+.score .num { font: var(--fdw) clamp(5rem, 8vw + 1rem, 9rem)/.9 var(--fd); font-variant-numeric: tabular-nums; color: var(--c1); margin-top: 10px; }
+.score .stars { color: var(--c2); font-size: 1.7rem; letter-spacing: 3px; }
+.score p { color: var(--muted); }
+.samples { display: grid; gap: 14px; }
+.sample { border-radius: 20px; padding: 22px 24px; background: var(--bg); display: grid; gap: 10px; }
+.sample .ph { height: 10px; border-radius: 6px; background: var(--line); } .sample .ph.s { width: 62%; } .sample .ph.m { width: 86%; }
+.sample .who { display: flex; gap: 10px; align-items: center; font-size: 14.5px; color: var(--muted); }
+.sample .who i { width: 28px; height: 28px; border-radius: 50%; background: var(--tint1); }
+
+/* ---------- шаги ---------- */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; }
+.step { display: grid; gap: 12px; align-content: start; position: relative; }
+.step .num { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 20px; background: var(--col); color: #fff; font: var(--fdw) 1.9rem/1 var(--fd);
+  transform: rotate(calc(var(--r) * var(--rot))); box-shadow: 0 5px 0 color-mix(in srgb, var(--col) 65%, #000); }
+.step p { color: var(--muted); max-width: 34ch; }
+.steps::before { content: ""; position: absolute; top: 32px; left: 64px; right: 16%; border-top: 3px dashed var(--line); }
+
+/* ---------- экскурсия ---------- */
+.book { color: #fff; }
+.book .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.book h2 { color: #fff; }
+.book-text > p:not(.note) { color: rgba(255,255,255,.78); margin-top: 18px; max-width: 44ch; }
+.book ul { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; }
+.book li { display: flex; gap: 12px; align-items: baseline; color: rgba(255,255,255,.9); }
+.book li::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--c2); flex: none; transform: rotate(12deg); }
+.form { background: var(--paper); color: var(--ink); border-radius: 28px; padding: clamp(22px, 3vw, 34px); display: grid; gap: 18px; }
+/* форма записи всегда стоит ровно, в любом стиле (просьба Тани, v3.3); кнопка внутри тоже не наклоняется */
+.form .btn-main:hover { transform: translateY(-2px); }
+.field { display: grid; gap: 7px; }
+.field > label, .field > .lbl { font-size: 15px; font-weight: 700; }
+.field input[type="text"], .field input[type="tel"], .field select { width: 100%; min-height: 50px; border-radius: 14px; border: 2px solid var(--line); padding: 0 14px; font: inherit; color: var(--ink); background: var(--bg); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--c3); background: var(--paper); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { border: 0; font: inherit; font-size: 15.5px; padding: 9px 13px; border-radius: 12px; cursor: pointer; background: var(--bg); box-shadow: inset 0 0 0 2px var(--line); color: var(--ink); font-variant-numeric: tabular-nums; }
+.chips button[aria-pressed="true"] { background: var(--c3); color: #fff; box-shadow: none; }
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; line-height: 1.45; color: var(--muted); }
+.consent input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--c1); }
+.err { color: var(--c1d); font-size: 15px; font-weight: 600; min-height: 1.2em; }
+.done { display: grid; gap: 12px; justify-items: start; }
+.done .ok { width: 58px; height: 58px; border-radius: 18px; background: var(--c4); display: grid; place-items: center; color: #fff; font-size: 30px; }
+.done p { color: var(--muted); }
+
+.foot { background: var(--ink); color: rgba(255,255,255,.72); border-top: 1px solid rgba(255,255,255,.1); font-size: 15.5px; }
+.foot .wrap { display: flex; flex-wrap: wrap; gap: 14px 32px; justify-content: space-between; padding-block: 30px calc(30px + 70px); }
+.foot .logo { color: #fff; display: block; }
+.foot a { color: #fff; }
+
+.float { position: fixed; left: 16px; right: 16px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: none; }
+.float .btn { width: 100%; }
+.float.show { display: block; animation: up .25s ease-out; }
+@keyframes up { from { transform: translateY(20px); opacity: 0; } }
+
+/* ---------- превью: переключатели ---------- */
+.styler { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 40; display: flex; align-items: center; gap: 8px;
+  background: #1B1E3C; color: #fff; padding: 8px 10px; border-radius: 999px; font: 13px/1 var(--fb); box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
+.styler button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); cursor: pointer; padding: 0; }
+.styler button[aria-pressed="true"] { border-color: #fff; transform: scale(1.12); }
+.styler .pics { width: auto; height: 26px; border-radius: 999px; padding: 0 10px; background: #fff; color: #1B1E3C; font: 700 12px/1 var(--fb); border: 0; }
+.v-photo, .v-art { height: 100%; }
+[data-pics="photo"] .v-art, [data-pics="art"] .v-photo { display: none; }
+
+/* ---------- адаптив ---------- */
+@media (max-width: 960px) {
+  .nav { display: none; }
+  .hero-row, .rev, .book .wrap { grid-template-columns: 1fr; }
+  .hero-pic { max-width: 520px; margin-top: 44px; }
+  .groups, .team, .steps { grid-template-columns: 1fr; }
+  .groups { gap: 26px; }
+  .steps::before { display: none; }
+  .team .person { grid-template-columns: 84px 1fr; align-items: center; column-gap: 16px; }
+  .team .person .ava-art { width: 84px; height: 84px; grid-row: span 3; }
+  .tl { flex-direction: column; }
+  .tl button { grid-template-columns: 110px 1fr; align-items: baseline; padding: 14px 16px; }
+  .tl button[aria-pressed="true"] { transform: translateX(8px) rotate(-.6deg); }
+  .sunmark { display: none; }
+  .tl-wrap { padding-top: 0; }
+}
+@media (max-width: 680px) {
+  body { font-size: 17px; }
+  .top .btn { display: none; }
+  .faq { grid-template-columns: 1fr; }
+  .shots { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; gap: 20px 12px; }
+  .shots .shot:first-child { grid-column: span 2; grid-row: auto; }
+  .shot { padding: 7px 7px 8px; gap: 5px; }
+  .shot > img, .shot > .art, .shot .v-photo, .shot .v-art { flex: none; min-height: 0; height: auto; aspect-ratio: 1; }
+  .shots .shot:last-child { grid-column: auto; }
+  .shots .shot:first-child > img, .shots .shot:first-child > .art, .shots .shot:first-child .v-photo, .shots .shot:first-child .v-art { aspect-ratio: 16 / 10; }
+  .shot figcaption { font-size: 1.4rem; padding: 0 3px; }
+  .facts li { padding: 11px 12px; gap: 9px; font-size: .98em; }
+  .tl-card { grid-template-columns: 1fr; }
+  .row2 { grid-template-columns: 1fr; }
+  .cta-row .btn { flex: 1 1 100%; }
+  .n-hero { top: -40px; left: 0; font-size: calc(var(--fhs) * .82); white-space: nowrap; }
+  .n-hero .arrow { width: 48px; height: 36px; margin-top: 10px; }
+  .hero-photo .sun-st { width: 84px; height: 84px; top: -28px; right: -12px; }
+  .styler { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  .b5 { display: none; }
+  .b3 { right: -20%; bottom: -8%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .js .arrow.draw path { stroke-dashoffset: 0; }
+}
+
+/* отметка «сейчас» на телефоне, где лента вертикальная */
+.tl .now-tag { display: none; }
+@media (max-width: 960px) {
+  .tl button { position: relative; }
+  .tl .now-tag { display: block; position: absolute; right: 12px; top: 50%; transform: translateY(-50%) rotate(-4deg); font: 700 1.3rem/1 var(--fh); color: var(--hand); }
+  .tl button[aria-pressed="true"] .now-tag { color: #fff; }
+}
+
+</style>
+</head>
+<body>
+<script>document.documentElement.setAttribute("data-style", "premium");document.documentElement.classList.add("js");</script>
+
+<div class="ribbon"><div class="wrap"><b>Демо-сайт для «Гудвин».</b> Рукописные пометки — для вас, на готовом сайте их не будет. Тексты, цены и фото условные.</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">Гудвин</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#day">Режим дня</a><a href="#groups">Цены</a><a href="#faq">Вопросы</a><a href="#book">Экскурсия</a>
+    </nav>
+    <a class="btn btn-main" href="#book">Записаться</a>
+  </div>
+</header>
+
+<main>
+<section class="hero sec" style="--sec:var(--bg)">
+  <div class="blobs" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></div>
+  <div class="wrap">
+    <h1 class="mag" style="--fs:min(9.5rem, 17.44vw)" aria-label="Гудвин"><span class="w"><span class="l" style="--lc:var(--c1);--r:-5deg;--y:0.00em;--i:0" aria-hidden="true">Г</span><span class="l" style="--lc:var(--c3);--r:3deg;--y:-0.04em;--i:1" aria-hidden="true">у</span><span class="l" style="--lc:var(--c2);--r:-2deg;--y:0.03em;--i:2" aria-hidden="true">д</span><span class="l" style="--lc:var(--c4);--r:6deg;--y:-0.02em;--i:3" aria-hidden="true">в</span><span class="l" style="--lc:var(--c5);--r:-4deg;--y:0.04em;--i:4" aria-hidden="true">и</span><span class="l" style="--lc:var(--c1);--r:2deg;--y:-0.03em;--i:5" aria-hidden="true">н</span></span></h1>
+    <div class="hero-row">
+      <div class="hero-text">
+        <p class="kind">Частный детский сад в Москве</p>
+        <ul class="facts"><li style="--c:var(--c1)">Дети от 1,5 до 7 лет</li><li style="--c:var(--c3)">Шесть филиалов</li><li style="--c:var(--c4)">Перевод внутри сети</li><li style="--c:var(--c2)">Свой пищеблок в каждом</li></ul>
+        <div class="badges"><span class="badge"><span class="stars" aria-hidden="true">★★★★★</span> <b>5,0</b> в 2ГИС</span><span class="badge"><b>41</b> отзыв родителей</span><span class="badge"><b>6</b> филиалов в городе</span></div>
+        <div class="cta-row">
+          <a class="btn btn-main" href="#book">Записаться на экскурсию</a>
+          <a class="btn btn-ghost" href="#day">Режим дня</a>
+        </div>
+        <div class="now" aria-live="polite"><span class="dot" aria-hidden="true"></span><p>Сад работает по будням.</p></div>
+      </div>
+      <div class="hero-pic">
+        <figure class="hero-photo"><i class="tape" aria-hidden="true"></i><img src="photos/hero.jpg" alt="Игровая комната детского сада Гудвин"><svg class="art sun-st" viewBox="0 0 120 120" aria-hidden="true"><defs><filter id="paperS" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2.5" stdDeviation="2" flood-color="#1b1f3b" flood-opacity=".18"/></filter></defs><g class="rays"><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(0 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(30 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(60 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(90 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(120 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(150 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(180 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(210 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(240 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(270 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(300 60 60)"/><rect class="p2" x="56" y="4" width="8" height="20" rx="4" transform="rotate(330 60 60)"/></g><circle class="p2" cx="60" cy="60" r="30" filter="url(#paperS)"/></svg><figcaption>фото условное</figcaption></figure>
+        <p class="hand note n-hero">фото условное — поставим ваше<svg class="arrow draw" viewBox="0 0 90 60" aria-hidden="true"><path d="M6 8 C 30 4, 64 14, 78 46 M66 40 L78 47 L82 33"/></svg></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="day sec zz" id="day" style="--sec:var(--paper)">
+  <div class="wrap">
+    <div class="head"><h2>Режим дня</h2><p class="hand note">нажмите на время — расскажем, чем заняты дети</p></div>
+    <div class="tl-wrap"><div class="tl" role="group" aria-label="Режим дня"><button type="button" aria-pressed="false" style="--w:90;--col:var(--c3);--tint:var(--tint3)"><span class="t">07:30–09:00</span><span class="n">Приём</span></button><button type="button" aria-pressed="false" style="--w:180;--col:var(--c1);--tint:var(--tint1)"><span class="t">09:00–12:00</span><span class="n">Занятия</span></button><button type="button" aria-pressed="false" style="--w:180;--col:var(--c4);--tint:var(--tint4)"><span class="t">12:00–15:00</span><span class="n">Прогулка и сон</span></button><button type="button" aria-pressed="false" style="--w:150;--col:var(--c5);--tint:var(--tint1)"><span class="t">15:00–17:30</span><span class="n">Студии</span></button><button type="button" aria-pressed="false" style="--w:120;--col:var(--c2);--tint:var(--tint2)"><span class="t">17:30–19:30</span><span class="n">Вечер</span></button></div><div class="sunmark" aria-hidden="true"><i></i></div></div>
+    <div class="tl-card" aria-live="polite"><div class="big">08:00</div><div><h3>Утро</h3><p>Распорядок дня.</p></div></div>
+  </div>
+</section>
+
+<section class="photos sec zz" id="photos" style="--sec:var(--tintA)">
+  <div class="wrap">
+    <div class="head"><h2>Как у нас</h2><p class="hand note">фото условные — поставим ваши, хватит снимков с телефона</p></div>
+    <div class="shots"><figure class="shot" style="--tilt:-1.6deg;--tr:-4deg"><i class="tape" aria-hidden="true"></i><img src="photos/group.jpg" alt="Группа" loading="lazy"><figcaption>Группа <span>— где ребёнок проводит день</span></figcaption></figure><figure class="shot" style="--tilt:1.2deg;--tr:5deg"><i class="tape" aria-hidden="true"></i><img src="photos/yard.jpg" alt="Площадка" loading="lazy"><figcaption>Площадка <span>— своя территория во дворе</span></figcaption></figure><figure class="shot" style="--tilt:-1deg;--tr:-3deg"><i class="tape" aria-hidden="true"></i><img src="photos/kitchen.jpg" alt="Кухня" loading="lazy"><figcaption>Кухня <span>— где готовят и как выглядит меню</span></figcaption></figure><figure class="shot" style="--tilt:1.8deg;--tr:3deg"><i class="tape" aria-hidden="true"></i><img src="photos/lesson.jpg" alt="Занятие" loading="lazy"><figcaption>Занятие <span>— как проходит обычное утро</span></figcaption></figure><figure class="shot" style="--tilt:-0.8deg;--tr:-5deg"><i class="tape" aria-hidden="true"></i><img src="photos/door.jpg" alt="Вход" loading="lazy"><figcaption>Вход <span>— чтобы вас узнали с улицы</span></figcaption></figure></div>
+  </div>
+</section>
+
+<section class="people sec zz" style="--sec:var(--paper)">
+  <div class="blobs" aria-hidden="true"><i class="b6"></i></div>
+  <div class="wrap">
+    <div class="head"><h2>Кто с детьми</h2><p class="hand note">этот блок родители читают внимательнее всего</p></div>
+    <div class="team"><article class="person"><svg class="ava-art" viewBox="0 0 120 120" aria-hidden="true"><defs><filter id="papera0" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2.5" stdDeviation="2" flood-color="#1b1f3b" flood-opacity=".18"/></filter></defs><circle class="ps" cx="60" cy="60" r="60"/><path class="p1" d="M20 120 C 22 86, 98 86, 100 120 Z" filter="url(#papera0)"/><circle class="pw" cx="60" cy="54" r="22" filter="url(#papera0)"/><path class="p5d" d="M37 52 C 38 26, 82 26, 83 52 C 74 40, 50 38, 37 52 Z"/></svg><h3>Воспитатель группы</h3><p>Ведёт день, знает привычки каждого ребёнка и вечером рассказывает вам, как он прошёл.</p><span class="chip">фото и имя — ваши</span></article><article class="person"><svg class="ava-art" viewBox="0 0 120 120" aria-hidden="true"><defs><filter id="papera1" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2.5" stdDeviation="2" flood-color="#1b1f3b" flood-opacity=".18"/></filter></defs><circle class="ps" cx="60" cy="60" r="60"/><path class="p3" d="M20 120 C 22 86, 98 86, 100 120 Z" filter="url(#papera1)"/><circle class="pw" cx="60" cy="54" r="22" filter="url(#papera1)"/><path class="p1d" d="M37 52 C 38 26, 82 26, 83 52 C 74 40, 50 38, 37 52 Z"/></svg><h3>Педагог по занятиям</h3><p>Речь, счёт, окружающий мир и творчество — по программе, но в игре.</p><span class="chip">фото и имя — ваши</span></article><article class="person"><svg class="ava-art" viewBox="0 0 120 120" aria-hidden="true"><defs><filter id="papera2" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2.5" stdDeviation="2" flood-color="#1b1f3b" flood-opacity=".18"/></filter></defs><circle class="ps" cx="60" cy="60" r="60"/><path class="p4" d="M20 120 C 22 86, 98 86, 100 120 Z" filter="url(#papera2)"/><circle class="pw" cx="60" cy="54" r="22" filter="url(#papera2)"/><path class="pg" d="M37 52 C 38 26, 82 26, 83 52 C 74 40, 50 38, 37 52 Z"/></svg><h3>Повар</h3><p>Готовит на месте, по меню, которое вы видите заранее.</p><span class="chip">фото и имя — ваши</span></article></div>
+  </div>
+</section>
+
+<section class="faqs sec zz" id="faq" style="--sec:var(--bg)">
+  <div class="wrap">
+    <div class="head"><h2>Коротко о главном</h2><p class="hand note">то, о чём обычно спрашивают по телефону</p></div>
+    <div class="faq"><article class="qa"><i class="cut c0" style="--col:var(--c2)"></i><h3>Шесть филиалов</h3><p>Программа и требования к педагогам везде одинаковые. Филиал можно выбрать просто поближе к дому.</p></article><article class="qa"><i class="cut c1" style="--col:var(--c3)"></i><h3>Перевод внутри сети</h3><p>Если вы переехали, переведём ребёнка в другой филиал. Место сохранится, заново проходить адаптацию не нужно.</p></article><article class="qa"><i class="cut c2" style="--col:var(--c5)"></i><h3>Свой пищеблок в каждом</h3><p>В каждом филиале готовят на месте. Меню согласовано и одинаково во всех филиалах.</p></article><article class="qa"><i class="cut c3" style="--col:var(--c4)"></i><h3>Рейтинг 5,0 в 2ГИС</h3><p>Сорок один отзыв по шести адресам. Хорошие оценки у всех филиалов.</p></article></div>
+  </div>
+</section>
+
+<section class="prices sec zz" id="groups" style="--sec:var(--tintB)">
+  <div class="blobs" aria-hidden="true"><i class="b7"></i></div>
+  <div class="wrap">
+    <div class="head"><h2>Группы и цены</h2><p class="hand note">выберите возраст — подсветится группа</p></div>
+    <div class="picker" role="group" aria-label="Возраст ребёнка"><span>Ребёнку</span><button type="button" aria-pressed="false">1,5 — 3 года</button><button type="button" aria-pressed="false">3 — 5 лет</button><button type="button" aria-pressed="false">5 — 7 лет</button></div>
+    <div class="groups"><article class="grp" style="--col:var(--c3);--tint:var(--tint3)"><span class="fit" hidden>подходит</span><span class="age">1,5 — 3 года</span><h3>Ясельная</h3><div class="price">42 000 ₽ <span>в месяц</span></div><ul><li>Полный день, 07:30–19:30</li><li>Адаптация в своём темпе</li><li>Пятиразовое питание</li></ul></article><article class="grp" style="--col:var(--c1);--tint:var(--tint1)"><span class="fit" hidden>подходит</span><span class="age">3 — 5 лет</span><h3>Средняя</h3><div class="price">46 000 ₽ <span>в месяц</span></div><ul><li>Английский ежедневно</li><li>Две студии в стоимости</li><li>Логопед и психолог</li></ul></article><article class="grp" style="--col:var(--c4);--tint:var(--tint4)"><span class="fit" hidden>подходит</span><span class="age">5 — 7 лет</span><h3>Подготовительная</h3><div class="price">49 000 ₽ <span>в месяц</span></div><ul><li>Программа подготовки к школе</li><li>Психолог перед первым классом</li><li>Портфолио выпускника</li></ul></article></div>
+    <p class="fineprint">Цены за месяц полного дня. Наличие мест подскажем на экскурсии.</p>
+  </div>
+</section>
+
+<section class="reviews sec zz" style="--sec:var(--paper)">
+  <div class="wrap rev">
+    <div class="score">
+      <h2>Отзывы</h2>
+      <div class="num">5,0</div>
+      <div class="stars" aria-hidden="true">★★★★★</div>
+      <p>41 отзыв родителей в 2ГИС</p>
+    </div>
+    <div class="samples" aria-label="Образец блока отзывов">
+      <p class="hand note">сюда встанут настоящие отзывы из 2ГИС и будут обновляться сами</p>
+      <div class="sample"><div class="who"><i></i>Мама, средняя группа</div><div class="ph m"></div><div class="ph"></div><div class="ph s"></div></div>
+      <div class="sample"><div class="who"><i></i>Папа, ясли</div><div class="ph"></div><div class="ph m"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="how sec zz" style="--sec:var(--bg)">
+  <div class="wrap">
+    <div class="head"><h2>Как попасть в сад</h2></div>
+    <div class="steps"><div class="step"><div class="num" style="--col:var(--c3);--r:-5deg">1</div><h3>Выбираете филиал</h3><p>Скажете район — подскажем, в каком филиале сейчас есть места в нужной возрастной группе.</p></div><div class="step"><div class="num" style="--col:var(--c1);--r:4deg">2</div><h3>Экскурсия и пробный день</h3><p>Покажем именно тот филиал, куда пойдёт ребёнок, и дадим побыть с группой.</p></div><div class="step"><div class="num" style="--col:var(--c4);--r:-3deg">3</div><h3>Договор</h3><p>Условия и цены одинаковые во всех шести филиалах, перевод между ними — без доплат.</p></div></div>
+  </div>
+</section>
+
+<section class="book sec zz" id="book" style="--sec:var(--ink)">
+  <div class="wrap">
+    <div class="book-text">
+      <h2>Приходите на&nbsp;экскурсию</h2>
+      <p>Запишем на экскурсию в тот филиал, который вам ближе. Покажем группу, кухню и площадку, познакомим с воспитателем.</p>
+      <ul><li>группа, где будет ребёнок</li><li>кухня и меню на неделю</li><li>площадка во дворе</li><li>знакомство с воспитателем</li></ul>
+      <p class="hand note light">заявка придёт вам в Telegram и на почту</p>
+    </div>
+    <div>
+      <form class="form" id="book-form" novalidate>
+        <div class="row2">
+          <div class="field"><label for="f-name">Как к вам обращаться</label><input id="f-name" type="text" autocomplete="given-name" placeholder="Анна"></div>
+          <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7"></div>
+        </div>
+        <div class="field"><label for="f-age">Возраст ребёнка</label><select id="f-age"><option>Выберите группу</option><option>1,5 — 3 года — Ясельная</option><option>3 — 5 лет — Средняя</option><option>5 — 7 лет — Подготовительная</option></select></div>
+        <div class="field"><span class="lbl" id="l-days">День</span><div class="chips" id="f-days" role="group" aria-labelledby="l-days"></div></div>
+        <div class="field"><span class="lbl" id="l-time">Время</span><div class="chips" id="f-time" role="group" aria-labelledby="l-time">
+          <button type="button" aria-pressed="true">10:00</button><button type="button" aria-pressed="false">11:30</button>
+          <button type="button" aria-pressed="false">16:00</button><button type="button" aria-pressed="false">17:30</button></div></div>
+        <label class="consent"><input id="f-ok" type="checkbox"> <span>Согласен(на) на обработку персональных данных по <a href="#policy">политике конфиденциальности</a>.</span></label>
+        <div class="err" role="alert"></div>
+        <button class="btn btn-main" type="submit">Записаться</button>
+      </form>
+      <div class="form done" hidden>
+        <div class="ok" aria-hidden="true">✓</div>
+        <h3>Заявка принята</h3>
+        <p>Вы выбрали: <b class="when"></b>. На рабочем сайте заявка сразу придёт администратору в Telegram и на почту, он перезвонит и подтвердит время.</p>
+        <p>Это демо-сайт, поэтому сейчас заявка никуда не ушла.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot" id="policy">
+  <div class="wrap">
+    <div><div class="logo">Гудвин</div>Частный детский сад, Москва</div>
+    <div><a href="tel:+79264350317">+7 926 435-03-17</a><br>Политика обработки персональных данных</div>
+    <div>Макет подготовила Татьяна</div>
+  </div>
+</footer>
+
+<div class="float"><a class="btn btn-main" href="#book">Записаться на экскурсию</a></div>
+
+
+<script id="cfg" type="application/json">{"tz": "Europe/Moscow", "city_in": "Москве", "day": [{"from": "07:30", "to": "09:00", "title": "Приём", "text": "Встреча, свободная игра, завтрак.", "now": "детей приводят в сад, скоро завтрак"}, {"from": "09:00", "to": "12:00", "title": "Занятия", "text": "Речь, математика, английский, окружающий мир.", "now": "у детей занятия"}, {"from": "12:00", "to": "15:00", "title": "Прогулка и сон", "text": "Закрытая площадка, обед, тихий час.", "now": [["12:45", "дети гуляют"], ["13:15", "у детей обед"], ["99:99", "у детей тихий час"]]}, {"from": "15:00", "to": "17:30", "title": "Студии", "text": "Спорт, музыка, творчество — расписание по филиалу.", "now": "у детей студии"}, {"from": "17:30", "to": "19:30", "title": "Вечер", "text": "Полдник, игры, обратная связь родителям.", "now": "детей забирают домой"}]}</script>
+<script>
+(function () {
+  "use strict";
+  var cfgEl = document.getElementById("cfg");
+  var C = cfgEl ? JSON.parse(cfgEl.textContent) : {};
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function mins(hhmm) { var p = hhmm.split(":"); return (+p[0]) * 60 + (+p[1]); }
+
+  /* ---------- время в городе сада ---------- */
+  function cityNow() {
+    try {
+      var parts = new Intl.DateTimeFormat("ru-RU", { timeZone: C.tz, hour: "2-digit", minute: "2-digit", weekday: "short", hour12: false })
+        .formatToParts(new Date());
+      var o = {}; parts.forEach(function (p) { o[p.type] = p.value; });
+      var wd = (o.weekday || "").toLowerCase().replace(".", "");
+      return { h: +o.hour % 24, m: +o.minute, weekend: wd === "сб" || wd === "вс", label: o.hour + ":" + o.minute };
+    } catch (e) {
+      var d = new Date(); return { h: d.getHours(), m: d.getMinutes(), weekend: d.getDay() === 0 || d.getDay() === 6,
+        label: ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) };
+    }
+  }
+
+  /* ---------- распорядок дня ---------- */
+  var tl = $(".tl"), card = $(".tl-card");
+  function show(i, isNow) {
+    var d = C.day[i];
+    $$(".tl button").forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    $(".big", card).textContent = d.from;
+    $("h3", card).textContent = d.title;
+    $("p", card).textContent = d.text + (isNow ? " Это происходит прямо сейчас." : "");
+    card.style.setProperty("--c1", getComputedStyle($$(".tl button")[i]).getPropertyValue("--col"));
+    card.classList.remove("swap"); void card.offsetWidth; card.classList.add("swap");
+  }
+  function placeSun(n, idx) {
+    var sm = $(".sunmark"), wrap = $(".tl-wrap");
+    if (!sm || !wrap) return;
+    if (idx < 0) { sm.hidden = true; return; }
+    var b = $$(".tl button")[idx], d = C.day[idx], t = n.h * 60 + n.m;
+    var frac = (t - mins(d.from)) / Math.max(1, mins(d.to) - mins(d.from));
+    sm.hidden = false;
+    sm.style.setProperty("--pos", (b.offsetLeft + frac * b.offsetWidth) + "px");
+  }
+  function currentIdx(n) {
+    var t = n.h * 60 + n.m;
+    for (var i = 0; i < C.day.length; i++) { if (t >= mins(C.day[i].from) && t < mins(C.day[i].to)) return i; }
+    return -1;
+  }
+  function nowText(d, n) {
+    if (typeof d.now === "string") return d.now;
+    var t = n.h * 60 + n.m;
+    for (var i = 0; i < d.now.length; i++) { if (t < mins(d.now[i][0])) return d.now[i][1]; }
+    return d.now[d.now.length - 1][1];
+  }
+  function tick() {
+    var n = cityNow(), idx = n.weekend ? -1 : currentIdx(n), line = $(".now p");
+    $$(".tl .now-tag").forEach(function (x) { x.remove(); });
+    if (idx >= 0) {
+      var b = $$(".tl button")[idx], tag = document.createElement("span");
+      tag.className = "now-tag"; tag.textContent = "сейчас"; b.appendChild(tag);
+      if (line) line.innerHTML = "Сейчас в " + C.city_in + " <b>" + n.label + "</b> — " + nowText(C.day[idx], n) + ".";
+    } else if (line) {
+      var open = C.day[0].from, close = C.day[C.day.length - 1].to, t = n.h * 60 + n.m;
+      line.innerHTML = "Сейчас в " + C.city_in + " <b>" + n.label + "</b>" +
+        (n.weekend ? ", сегодня выходной. В будни сад открыт с " + open + " до " + close + "."
+         : t < mins(open) ? ", сад откроется в " + open + "." : ", сад уже закрыт. Работаем по будням с " + open + " до " + close + ".");
+    }
+    placeSun(n, idx);
+    return idx;
+  }
+  if (tl && C.day) {
+    window.addEventListener("resize", function () { tick(); });
+    $$(".tl button").forEach(function (b, i) { b.addEventListener("click", function () { show(i, i === tick()); }); });
+    var first = tick();
+    show(first >= 0 ? first : 1, first >= 0);
+    setInterval(tick, 30000);
+  }
+
+  /* ---------- подбор группы ---------- */
+  var groups = $(".groups");
+  $$(".picker button").forEach(function (b, i) {
+    b.addEventListener("click", function () {
+      var on = b.getAttribute("aria-pressed") !== "true";
+      $$(".picker button").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      $$(".grp").forEach(function (g) { g.classList.remove("on"); var f = $(".fit", g); if (f) f.hidden = true; });
+      groups.classList.toggle("picked", on);
+      if (on) {
+        b.setAttribute("aria-pressed", "true");
+        var g = $$(".grp")[i]; g.classList.add("on"); $(".fit", g).hidden = false;
+        var sel = $("#f-age"); if (sel) sel.selectedIndex = i + 1;
+      }
+    });
+  });
+
+  /* ---------- даты экскурсии: ближайшие 6 будних дней ---------- */
+  var days = $("#f-days");
+  if (days) {
+    var wd = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"], mon = ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"];
+    var d = new Date(), made = 0;
+    while (made < 6) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() === 0 || d.getDay() === 6) continue;
+      var b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-pressed", made === 0 ? "true" : "false");
+      b.textContent = wd[d.getDay()] + ", " + d.getDate() + " " + mon[d.getMonth()];
+      days.appendChild(b); made++;
+    }
+  }
+  $$(".chips").forEach(function (box) {
+    box.addEventListener("click", function (ev) {
+      var b = ev.target.closest("button"); if (!b) return;
+      $$("button", box).forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    });
+  });
+
+  /* ---------- форма (демо: никуда не отправляет) ---------- */
+  var form = $("#book-form");
+  if (form) form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var err = $(".err", form), phone = ($("#f-phone").value || "").replace(/\D/g, "");
+    if (!$("#f-name").value.trim()) { err.textContent = "Напишите, как к вам обращаться."; $("#f-name").focus(); return; }
+    if (phone.length < 10) { err.textContent = "Проверьте номер телефона: нужно 10–11 цифр."; $("#f-phone").focus(); return; }
+    if (!$("#f-ok").checked) { err.textContent = "Без согласия на обработку данных заявку отправить нельзя, так требует закон."; return; }
+    var day = $("#f-days [aria-pressed='true']"), time = $("#f-time [aria-pressed='true']");
+    form.hidden = true;
+    var done = $(".done"); done.hidden = false;
+    $(".when", done).textContent = (day ? day.textContent : "") + (time ? ", " + time.textContent : "");
+  });
+
+  /* ---------- шапка и плавающая кнопка ---------- */
+  var top = $(".top"), fl = $(".float"), hero = $(".hero"), book = $("#book");
+  var heroGone = false, bookSeen = false;
+  function upd() { if (fl) fl.classList.toggle("show", heroGone && !bookSeen && window.innerWidth <= 680); }
+  if ("IntersectionObserver" in window && hero) {
+    new IntersectionObserver(function (e) { heroGone = !e[0].isIntersecting; if (top) top.classList.toggle("scrolled", heroGone); upd(); }).observe(hero);
+    if (book) new IntersectionObserver(function (e) { bookSeen = e[0].isIntersecting; upd(); }).observe(book);
+    window.addEventListener("resize", upd);
+  }
+
+  /* ---------- название по ширине экрана: уменьшаем, если не влезает ---------- */
+  var mag = $(".mag");
+  function fitMag() {
+    if (!mag) return;
+    mag.style.fontSize = "";
+    var box = mag.getBoundingClientRect(), right = 0;
+    $$(".w", mag).forEach(function (w) { right = Math.max(right, w.getBoundingClientRect().right); });
+    var over = (right - box.left) / box.width;
+    if (over > 1) mag.style.fontSize = (parseFloat(getComputedStyle(mag).fontSize) / over * 0.97) + "px";
+    /* пометка «фото условное» над фото не должна наезжать на длинное название в две строки (v3.5) */
+    var row = $(".hero-row"), nh = $(".n-hero");
+    if (row && nh && nh.offsetParent) {
+      row.style.paddingTop = "";
+      var gap = mag.getBoundingClientRect().bottom + parseFloat(getComputedStyle(mag).fontSize) * 0.14 - nh.getBoundingClientRect().top;
+      if (gap > 0) row.style.paddingTop = Math.ceil(gap) + "px";
+    }
+  }
+  if (mag) {
+    fitMag();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitMag);
+    window.addEventListener("resize", fitMag);
+  }
+
+  /* ---------- буквы-магниты: подпрыгивают от касания ---------- */
+  $$(".mag .l").forEach(function (l) {
+    l.addEventListener("animationend", function () { l.style.animation = "none"; });
+    l.addEventListener("touchstart", function () {
+      l.style.transform = "translateY(-.14em) rotate(calc(var(--r) * -2))";
+      setTimeout(function () { l.style.transform = ""; }, 320);
+    }, { passive: true });
+  });
+
+  /* ---------- фото / рисунки (превью) ---------- */
+  var pics = $(".styler .pics");
+  if (pics) {
+    document.documentElement.setAttribute("data-pics", "photo");
+    pics.addEventListener("click", function () {
+      var toArt = document.documentElement.getAttribute("data-pics") === "photo";
+      document.documentElement.setAttribute("data-pics", toArt ? "art" : "photo");
+      pics.textContent = toArt ? "Рисунки" : "Фото";
+    });
+  }
+
+  /* ---------- переключатель стилей (превью) ---------- */
+  $$(".styler button[data-s]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.documentElement.setAttribute("data-style", b.dataset.s);
+      $$(".styler button[data-s]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      $(".styler span").textContent = b.title;
+      if (C.day) show(Math.max(0, $$(".tl button").findIndex(function (x) { return x.getAttribute("aria-pressed") === "true"; })), false);
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
